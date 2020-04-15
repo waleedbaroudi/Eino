@@ -1,4 +1,4 @@
-package com.example.eino.Controller;
+package com.example.eino.Controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eino.R;
