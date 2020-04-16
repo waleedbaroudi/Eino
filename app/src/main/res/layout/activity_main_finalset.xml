@@ -22,22 +22,24 @@
 
     <EditText
         android:id="@+id/username_field"
-        android:layout_width="239dp"
+        android:layout_width="0dp"
         android:layout_height="43dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginLeft="41dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginRight="41dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/password_field"
-        app:layout_constraintEnd_toEndOf="@+id/login_logo"
-        app:layout_constraintHorizontal_bias="0.095"
-        app:layout_constraintStart_toStartOf="@+id/login_logo" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/password_field"
-        android:layout_width="239dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:ems="10"
@@ -50,8 +52,12 @@
 
     <Button
         android:id="@+id/sign_in_button"
-        android:layout_width="223dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:layout_marginBottom="104dp"
         android:background="@drawable/round_button"
         android:shadowColor="#00FFFFFF"
