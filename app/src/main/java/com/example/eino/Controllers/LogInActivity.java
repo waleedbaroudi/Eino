@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     private boolean loggedIn = false;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         signInButton = (Button) findViewById(R.id.sign_in_button);
         usernameField = (TextView) findViewById(R.id.username_field);
         passwordField = (TextView) findViewById(R.id.password_field);
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startComponentAnimation(){
-        mainSet.clone(this, R.layout.activity_main_final_constraint_set);
+        mainSet.clone(this, R.layout.activity_login_constraint_set);
 
         new Handler().postDelayed(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(usernameField.getText().length()==0 || passwordField.getText().length()==0)
-                    Toast.makeText(MainActivity.this, "Please fill log in info", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogInActivity.this, "Please fill log in info", Toast.LENGTH_SHORT).show();
                 else {
                     loggedIn=true;
-                    startActivity(new Intent(MainActivity.this, SignupActivity.class));
+                    startActivity(new Intent(LogInActivity.this, SignupActivity.class));
                 }
             }
         });

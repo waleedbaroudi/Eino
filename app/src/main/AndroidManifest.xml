@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Controllers.SignupActivity"></activity>
         <activity
-            android:name=".Controllers.MainActivity"
+            android:name=".Controllers.LogInActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.noActionBar"
             tools:ignore="LockedOrientationActivity">
