@@ -47,14 +47,14 @@ public class LogInActivity extends AppCompatActivity {
         setupClickListeners();
     }
 
-    public void startComponentAnimation(){
+    public void startComponentAnimation() {
         mainSet.clone(this, R.layout.activity_login_constraint_set);
 
         new Handler().postDelayed(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void run() {
-                Transition spring  = new ChangeBounds();
+                Transition spring = new ChangeBounds();
                 spring.setInterpolator(new OvershootInterpolator());
                 TransitionManager.beginDelayedTransition(mainLayout, spring);
                 mainSet.applyTo(mainLayout);
@@ -63,16 +63,17 @@ public class LogInActivity extends AppCompatActivity {
         }, 100);
     }
 
-    public void setupClickListeners(){
+    public void setupClickListeners() {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(usernameField.getText().length()==0 || passwordField.getText().length()==0)
-                    Toast.makeText(LogInActivity.this, "Please fill log in info", Toast.LENGTH_SHORT).show();
-                else {
-                    loggedIn=true;
-                    startActivity(new Intent(LogInActivity.this, CategoryActivity.class));
+                if (usernameField.getText().length() == 0 || passwordField.getText().length() == 0) {
+//                    Toast.makeText(LogInActivity.this, "Please fill log in info", Toast.LENGTH_SHORT).show();
+//                    return;
                 }
+                loggedIn = true;
+                startActivity(new Intent(LogInActivity.this, CategoryActivity.class));
+
             }
         });
 
