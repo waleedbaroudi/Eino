@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.eino.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.content.Intent;
 import android.os.Build;
@@ -16,7 +15,6 @@ import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startComponentAnimation(){
-        mainSet.clone(this, R.layout.activity_main_finalset);
+        mainSet.clone(this, R.layout.activity_main_final_constraint_set);
 
         new Handler().postDelayed(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
