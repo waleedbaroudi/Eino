@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.example.eino.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserProfileActivity extends AppCompatActivity {
 
     @Override
