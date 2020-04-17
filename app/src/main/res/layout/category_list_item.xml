@@ -40,21 +40,21 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:text="Programming"
-                android:textColor="#1791F3"
+                android:textColor="@color/colorAccent"
                 android:textSize="24sp"
                 tools:layout_editor_absoluteX="180dp"
-                tools:layout_editor_absoluteY="24dp" />
+                tools:layout_editor_absoluteY="34dp" />
 
             <TextView
                 android:id="@+id/category_name2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="163dp"
+                android:layout_height="50dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Programming"
-                android:textColor="#1791F3"
-                android:textSize="24sp"
+                android:text="Description about the category"
+                android:textColor="#7E7E7E"
+                android:textSize="18sp"
                 tools:layout_editor_absoluteX="180dp"
-                tools:layout_editor_absoluteY="71dp" />
+                tools:layout_editor_absoluteY="81dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
