@@ -6,6 +6,10 @@ var _express = _interopRequireDefault(require("express"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
 
+var _mongoose = _interopRequireDefault(require("mongoose"));
+
+var _config = _interopRequireDefault(require("../config/config"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //Server Setup
@@ -21,9 +25,24 @@ app.use((0, _morgan["default"])("dev")); //Parse the data from the requests we g
 app.use(_express["default"].urlencoded({
   extended: false
 }));
-app.use(_express["default"].json()); //To prevent CORS errors
+app.use(_express["default"].json()); //Establish a connection with the mongodb server.
+
+_mongoose["default"].connect(_config["default"].dbConnectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+_mongoose["default"].set("useCreateIndex", true);
+
+_mongoose["default"].set("useFindAndModify", false); //When the connection is successful log it to the console
+
+
+_mongoose["default"].connection.on("open", function (open) {
+  console.log("Connected to mongo server successfully.");
+}); //To prevent CORS errors
 //We need to append headers before the response is sent back to the client
 //These headers tell the browser that we allow a client has a different origin from our server to get the response.
+
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); //* Every origin that a request comes from is allowed, this can be restricted to specific ips like 'http:/website.com
@@ -39,13 +58,23 @@ app.use(function (req, res, next) {
 });
 app.get("/", function (req, res, next) {
   res.send("Testing root endpoint");
-}); //if the program reaches this line that means no router in products or orders was able to handle the request therefore we catch an err
+}); //HANDLING ERRORS
+//if the program reaches this line that means no router in products or orders was able to handle the request therefore we catch an err
 
 app.use(function (req, res, next) {
   var error = new Error("Not found");
   error.status = 404; //forward the error
 
   next(error);
+}); //this line handles error thrown by the previous block or any request that reaches this line.
+
+app.use(function (error, req, res, next) {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message
+    }
+  });
 });
 console.log("Listening on port: ".concat(port)); //Start listening for requests on the specified PORT
 
