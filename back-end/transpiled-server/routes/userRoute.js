@@ -14,6 +14,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router(); //Get a list of all users
 
 
-router.get("/", _userController["default"].getUser);
+router.get("/", _userController["default"].getUser); //Add a user and get that added user back as a response
+
+router.post("/", _userController["default"].addUser);
 var _default = router;
 exports["default"] = _default;
