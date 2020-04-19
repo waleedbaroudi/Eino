@@ -10,7 +10,9 @@
     "build": "npm-run-all clean transpile"
   },
   "babel": {
-	  "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "author": "Noor Al Deen AL Fayad",
   "license": "GPL-3.0",
