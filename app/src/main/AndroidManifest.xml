@@ -10,15 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".Controllers.UserProfileActivity"
+        <activity android:name=".controllers.UserProfileActivity"
             android:theme="@style/AppTheme.noActionBar">
         </activity>
         <activity
-            android:name=".Controllers.CategoryActivity"
+            android:name=".controllers.CategoryActivity"
             android:label="Categories" />
-        <activity android:name=".Controllers.SignupActivity" />
+        <activity android:name=".controllers.SignupActivity" />
         <activity
-            android:name=".Controllers.LogInActivity"
+            android:name=".controllers.LogInActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.noActionBar"
             tools:ignore="LockedOrientationActivity" >

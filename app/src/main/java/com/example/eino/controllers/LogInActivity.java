@@ -1,4 +1,4 @@
-package com.example.eino.Controllers;
+package com.example.eino.controllers;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LogInActivity extends AppCompatActivity {
 

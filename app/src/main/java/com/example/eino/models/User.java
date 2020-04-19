@@ -1,4 +1,4 @@
-package com.example.eino.Models;
+package com.example.eino.models;
 
 import java.util.LinkedList;
 

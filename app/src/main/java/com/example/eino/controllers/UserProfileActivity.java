@@ -1,11 +1,9 @@
-package com.example.eino.Controllers;
+package com.example.eino.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.eino.R;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfileActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.eino.Models;
+package com.example.eino.models;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.eino.Controllers.UserProfileActivity;
+import com.example.eino.controllers.UserProfileActivity;
 import com.example.eino.R;
 
 public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.ViewHolder>{

@@ -1,4 +1,4 @@
-package com.example.eino.Controllers;
+package com.example.eino.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.eino.Models.MainCategoryAdapter;
+import com.example.eino.models.MainCategoryAdapter;
 import com.example.eino.R;
 
 public class CategoryActivity extends AppCompatActivity {
