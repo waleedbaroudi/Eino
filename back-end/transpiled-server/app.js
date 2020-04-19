@@ -10,22 +10,16 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _config = _interopRequireDefault(require("../config/config"));
 
+var _userRoute = _interopRequireDefault(require("./routes/userRoute"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //Server Setup
 var port = 3000 || process.env.PORT;
 var app = (0, _express["default"])();
 
-var server = _http["default"].createServer(app); //Express middlewear
-//Funnel all requests through morgan to be logged to the console.
+var server = _http["default"].createServer(app); //Establish a connection with the mongodb server.
 
-
-app.use((0, _morgan["default"])("dev")); //Parse the data from the requests we get so we can extract them.
-
-app.use(_express["default"].urlencoded({
-  extended: false
-}));
-app.use(_express["default"].json()); //Establish a connection with the mongodb server.
 
 _mongoose["default"].connect(_config["default"].dbConnectionString, {
   useNewUrlParser: true,
@@ -39,10 +33,18 @@ _mongoose["default"].set("useFindAndModify", false); //When the connection is su
 
 _mongoose["default"].connection.on("open", function (open) {
   console.log("Connected to mongo server successfully.");
-}); //To prevent CORS errors
+}); //Express middlewear
+//Funnel all requests through morgan to be logged to the console.
+
+
+app.use((0, _morgan["default"])("dev")); //Parse the data from the requests we get so we can extract them.
+
+app.use(_express["default"].urlencoded({
+  extended: false
+}));
+app.use(_express["default"].json()); //To prevent CORS errors
 //We need to append headers before the response is sent back to the client
 //These headers tell the browser that we allow a client has a different origin from our server to get the response.
-
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); //* Every origin that a request comes from is allowed, this can be restricted to specific ips like 'http:/website.com
@@ -58,7 +60,8 @@ app.use(function (req, res, next) {
 });
 app.get("/", function (req, res, next) {
   res.send("Testing root endpoint");
-}); //HANDLING ERRORS
+});
+app.use("/users", _userRoute["default"]); //HANDLING ERRORS
 //if the program reaches this line that means no router in products or orders was able to handle the request therefore we catch an err
 
 app.use(function (req, res, next) {

@@ -3,11 +3,26 @@ import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import config from "../config/config";
+import userRoute from "./routes/userRoute"
 
 //Server Setup
 const port = 3000 || process.env.PORT;
 const app = express();
 const server = http.createServer(app);
+
+
+//Establish a connection with the mongodb server.
+mongoose.connect(config.dbConnectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  mongoose.set("useCreateIndex", true);
+  mongoose.set("useFindAndModify", false);
+  //When the connection is successful log it to the console
+  mongoose.connection.on("open", (open) => {
+    console.log("Connected to mongo server successfully.");
+  });
+
 
 //Express middlewear
 //Funnel all requests through morgan to be logged to the console.
@@ -17,17 +32,6 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//Establish a connection with the mongodb server.
-mongoose.connect(config.dbConnectionString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-mongoose.set("useCreateIndex", true);
-mongoose.set("useFindAndModify", false);
-//When the connection is successful log it to the console
-mongoose.connection.on("open", (open) => {
-  console.log("Connected to mongo server successfully.");
-});
 
 //To prevent CORS errors
 //We need to append headers before the response is sent back to the client
@@ -50,6 +54,8 @@ app.use((req, res, next) => {
 app.get("/", (req, res, next) => {
   res.send("Testing root endpoint");
 });
+
+app.use("/users", userRoute);
 
 //HANDLING ERRORS
 //if the program reaches this line that means no router in products or orders was able to handle the request therefore we catch an err
