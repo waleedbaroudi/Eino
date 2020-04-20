@@ -19,15 +19,7 @@ exports.getUser = (req, res) => {
       });
     });
 };
-//Add a user and returns the added user
-// _id: mongoose.Schema.Types.ObjectId,
-// email: {type: String, required: true},
-// password: {type: String, required: true},
-// displayName: {type: String, required: true},
-// image: String,
-// skills: [String],
-// avaiable: Boolean,
-// contactInfoList: [{type: mongoose.Schema.Types.ObjectId, ref: 'ContactInfo'}]
+
 exports.addUser = (req, res) => {
     const user = new User({
       _id: new mongoose.Types.ObjectId(),
