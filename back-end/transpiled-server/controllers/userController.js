@@ -4,11 +4,15 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _User = _interopRequireDefault(require("../models/User"));
 
+var _config = _interopRequireDefault(require("../../config/config"));
+
 var _ContactInfo = _interopRequireDefault(require("../models/ContactInfo"));
+
+var _locus = _interopRequireDefault(require("locus"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-exports.getUser = function (req, res) {
+exports.getUsers = function (req, res) {
   _User["default"].find().select().exec().then(function (users) {
     var response = {
       count: users.length,
@@ -20,16 +24,32 @@ exports.getUser = function (req, res) {
       error: err
     });
   });
-}; //Add a user and returns the added user
-// _id: mongoose.Schema.Types.ObjectId,
-// email: {type: String, required: true},
-// password: {type: String, required: true},
-// displayName: {type: String, required: true},
-// image: String,
-// skills: [String],
-// avaiable: Boolean,
-// contactInfoList: [{type: mongoose.Schema.Types.ObjectId, ref: 'ContactInfo'}]
+};
 
+exports.getUser = function (req, res) {
+  _User["default"].findOne({
+    _id: req.params.id
+  }).exec().then(function (user) {
+    if (user) {
+      res.status(200).json({
+        _id: user._id,
+        email: user.email,
+        password: user.password,
+        displayName: user.displayName,
+        image: user.image,
+        skills: user.skills,
+        available: user.available,
+        contactInfoList: user.contactInfoList
+      });
+    } else res.status(404).json({
+      message: "No such user with this ID."
+    });
+  })["catch"](function (err) {
+    res.status(500).json({
+      error: err
+    });
+  });
+};
 
 exports.addUser = function (req, res) {
   var user = new _User["default"]({
@@ -54,7 +74,7 @@ exports.addUser = function (req, res) {
         available: user.available,
         request: {
           type: "GET",
-          url: "localhost:3000/api/" + user._id
+          url: _config["default"].hostUrl + "users/" + user._id
         }
       }
     });
