@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import User from "../models/User";
+import config from "../../config/config";
 import ContactInfo from "../models/ContactInfo";
+import locus from 'locus';
 
-exports.getUser = (req, res) => {
+exports.getUsers = (req, res) => {
   User.find()
     .select()
     .exec()
@@ -20,39 +22,66 @@ exports.getUser = (req, res) => {
     });
 };
 
-exports.addUser = (req, res) => {
-    const user = new User({
-      _id: new mongoose.Types.ObjectId(),
-      email: req.body.email,
-      password: req.body.password,
-      displayName: req.body.displayName,
-      image: req.body.image,
-      skills: req.body.skills,
-      available: req.body.available,
-    });
-    user
-      .save()
-      .then(user => {
-        res.status(201).json({
-          message: "Created user successfully",
-          createdUser: {
-            _id: user._id,
-            email: user.email,
-            password: user.password,
-            displayName: user.displayName,
-            image: user.image,
-            skills: user.skills,
-            available: user.available,
-            request: {
-              type: "GET",
-              url: "http://localhost:3000/api/" + user._id
-            }
-          }
+exports.getUser = (req, res) => {
+  User.findOne({ _id: req.params.id })
+    .exec()
+    .then((user) => {
+      if (user) {
+        res.status(200).json({
+          _id: user._id,
+          email: user.email,
+          password: user.password,
+          displayName: user.displayName,
+          image: user.image,
+          skills: user.skills,
+          available: user.available,
+          contactInfoList: user.contactInfoList
         });
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: err
+      } else
+        res.status(404).json({
+          message: "No such user with this ID.",
         });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
       });
-  };
+    });
+};
+
+exports.addUser = (req, res) => {
+  const user = new User({
+    _id: new mongoose.Types.ObjectId(),
+    email: req.body.email,
+    password: req.body.password,
+    displayName: req.body.displayName,
+    image: req.body.image,
+    skills: req.body.skills,
+    available: req.body.available,
+  });
+  user
+    .save()
+    .then((user) => {
+      res.status(201).json({
+        message: "Created user successfully",
+        createdUser: {
+          _id: user._id,
+          email: user.email,
+          password: user.password,
+          displayName: user.displayName,
+          image: user.image,
+          skills: user.skills,
+          available: user.available,
+          request: {
+            type: "GET",
+            url: config.hostUrl + "users/" + user._id
+          },
+        },
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
+};
