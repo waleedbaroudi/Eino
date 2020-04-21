@@ -54,7 +54,7 @@ exports.addUser = function (req, res) {
         available: user.available,
         request: {
           type: "GET",
-          url: "localhost:3000/api/" + user._id
+          url: "http://localhost:3000/api/" + user._id
         }
       }
     });

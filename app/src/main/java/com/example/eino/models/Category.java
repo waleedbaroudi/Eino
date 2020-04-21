@@ -1,13 +1,22 @@
 package com.example.eino.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Category {
-    private String type;
-    private ArrayList<Category> subCategories;
-    private int numOfPeople;
+//    @SerializedName("skills")
+//    @Expose
+    private ArrayList<String> subCategories=null;
 
-    public Category(String type, ArrayList<Category> subCategories, int numOfPeople) {
+    @SerializedName("title")
+    @Expose
+    private String type;
+
+    private int numOfPeople=0;
+
+    public Category(String type, ArrayList<String> subCategories, int numOfPeople) {
         this.type = type;
         this.subCategories = subCategories;
         this.numOfPeople = numOfPeople;
@@ -21,7 +30,7 @@ public class Category {
         this.type = type;
     }
 
-    public ArrayList<Category> getSubCategories() {
+    public ArrayList<String> getSubCategories() {
         return subCategories;
     }
 
@@ -33,7 +42,7 @@ public class Category {
         this.numOfPeople = numOfPeople;
     }
 
-    public void addSubCategory(Category category){
+    public void addSubCategory(String category){
         subCategories.add(category);
     }
 }
