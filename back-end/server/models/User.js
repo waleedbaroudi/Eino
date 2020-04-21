@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     image: String,
     skills: [String],
     avaiable: Boolean,
-    contactInfoList: [{type: mongoose.Schema.Types.ObjectId, ref: 'ContactInfo'}]
+    contactInfoList: [{kind: String, info: String}]
 });
 
 

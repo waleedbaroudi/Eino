@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import User from "../models/User";
 import config from "../../config/config";
-import ContactInfo from "../models/ContactInfo";
-import locus from 'locus';
+import locus from "locus";
 
 exports.getUsers = (req, res) => {
   User.find()
@@ -35,7 +34,7 @@ exports.getUser = (req, res) => {
           image: user.image,
           skills: user.skills,
           available: user.available,
-          contactInfoList: user.contactInfoList
+          contactInfoList: user.contactInfoList,
         });
       } else
         res.status(404).json({
@@ -58,6 +57,7 @@ exports.addUser = (req, res) => {
     image: req.body.image,
     skills: req.body.skills,
     available: req.body.available,
+    contactInfoList: req.body.contactInfoList,
   });
   user
     .save()
@@ -72,9 +72,10 @@ exports.addUser = (req, res) => {
           image: user.image,
           skills: user.skills,
           available: user.available,
+          contactInfoList: user.contactInfoList,
           request: {
             type: "GET",
-            url: config.hostUrl + "users/" + user._id
+            url: config.hostUrl + "users/" + user._id,
           },
         },
       });
