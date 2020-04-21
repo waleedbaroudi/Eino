@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Category {
-//    @SerializedName("skills")
-//    @Expose
-    private ArrayList<String> subCategories=null;
+    @SerializedName("skills")
+    @Expose
+    private ArrayList<String> subCategories;
 
     @SerializedName("title")
     @Expose

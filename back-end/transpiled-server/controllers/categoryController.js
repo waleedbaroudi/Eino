@@ -10,11 +10,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 exports.getCategories = function (req, res) {
   _Category["default"].find().select().exec().then(function (categories) {
-    var response = {
-      count: categories.length,
-      result: categories
-    };
-    res.status(200).json(response);
+    return res.status(200).json(categories);
   })["catch"](function (err) {
     res.status(500).json({
       error: err

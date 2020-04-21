@@ -12,7 +12,7 @@ import retrofit2.http.Headers;
 
 public interface DataAPI {
     @Headers("Content-type: application/json") //TODO: check later
-    @GET("users") //TODO: ADD SUB URL
+    @GET("categories") //TODO: ADD SUB URL
     Call<ArrayList<Category>> getCategories();
 
     @GET("INSERT-SUB-URL") //TODO: ADD SUB URL

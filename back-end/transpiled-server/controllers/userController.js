@@ -74,9 +74,7 @@ exports.addUser = function (req, res) {
         available: user.available,
         request: {
           type: "GET",
-
           url: _config["default"].hostUrl + "users/" + user._id
-
         }
       }
     });
