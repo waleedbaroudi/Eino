@@ -41,10 +41,14 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.categories_item:
+                    if(!onMyProfile)
+                        return true;
                     selectedFragment = new CategoryFragment();
                     onMyProfile = false;
                     break;
                 case R.id.profile_item:
+                    if(onMyProfile)
+                        return true;
                     selectedFragment = new MyProfileFragment();
                     onMyProfile = true;
                     break;
