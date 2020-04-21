@@ -40,4 +40,12 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     // FlowLayout
     implementation 'com.nex3z:flow-layout:1.2.4'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    //
+    // JSON Converter - GSON
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    //
+
 }
