@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.eino.R;
+import com.example.eino.controllers.fragments.CategoryFragment;
 
 import android.content.Intent;
 import android.os.Build;
@@ -71,7 +72,7 @@ public class LogInActivity extends AppCompatActivity {
 //                    return;
                 }
                 loggedIn = true;
-                startActivity(new Intent(LogInActivity.this, CategoryActivity.class));
+                startActivity(new Intent(LogInActivity.this, MainActivity.class));
 
             }
         });
