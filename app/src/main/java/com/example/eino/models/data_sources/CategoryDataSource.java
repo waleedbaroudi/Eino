@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.eino.models.Category;
 import com.example.eino.models.network.Network;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -27,19 +28,44 @@ public class CategoryDataSource {
 
             @Override
             public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
-                Log.e(TAG, "onFailure: FAILED WITH error: ", t );
+                Log.e(TAG, "onFailure: FAILED WITH error: ", t);
                 delegate.fetchFailure();
             }
         });
 
     }
 
+    public void fetchSubCategories(String categoryID) {
+        Call<Category> call = network.getDataAPI().getCategories(categoryID);
+        call.enqueue(new Callback<Category>() {
+            @Override
+            public void onResponse(Call<Category> call, Response<Category> response) {
+                delegate.subcategoriesFetched(response.body().getSubCategories());
+            }
+
+            @Override
+            public void onFailure(Call<Category> call, Throwable t) {
+                delegate.fetchFailure();
+            }
+        });
+    }
+
     public void setDelegate(CategoryDataSourceDelegate delegate) {
         this.delegate = delegate;
     }
 
-    public interface CategoryDataSourceDelegate{
-        void categoriesFetched(ArrayList<Category> categories);
+    public interface CategoryDataSourceDelegate {
+        default void categoriesFetched(ArrayList<Category> categories) {
+            Log.e(TAG, "categoriesFetched: ", new IllegalStateException("Delegate not set"));
+        }
+
+        ;
+
+        default void subcategoriesFetched(ArrayList<String> subcats) {
+            Log.e(TAG, "categoriesFetched: ", new IllegalStateException("Delegate not set"));
+        }
+
+
         void fetchFailure();
     }
 }

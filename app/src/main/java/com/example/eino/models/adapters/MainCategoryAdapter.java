@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.eino.controllers.SubCategoryActivity;
 import com.example.eino.controllers.UserProfileActivity;
 import com.example.eino.R;
 import com.example.eino.models.Category;
@@ -34,7 +35,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.catName.setText(cats.get(position).getType());
-        holder.itemCard.setOnClickListener(v -> v.getContext().startActivity(new Intent(v.getContext(), UserProfileActivity.class)));
+        holder.itemCard.setOnClickListener(v -> v.getContext().startActivity(new Intent(v.getContext(), SubCategoryActivity.class).putExtra("catID", cats.get(position).getId())));
     }
 
     @Override

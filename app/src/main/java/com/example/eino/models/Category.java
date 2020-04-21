@@ -13,13 +13,22 @@ public class Category {
     @SerializedName("type")
     @Expose
     private String type;
+    @SerializedName("_id")
+    @Expose
+    private String id;
 
     private int numOfPeople=0;
 
-    public Category(String type, ArrayList<String> subCategories, int numOfPeople) {
+    public Category(String type, ArrayList<String> subCategories, int numOfPeople, String id) {
         this.type = type;
         this.subCategories = subCategories;
+        this.id = id;
 //        this.numOfPeople = numOfPeople;
+    }
+
+
+    public String getId() {
+        return id;
     }
 
     public String getType() {
