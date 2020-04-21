@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Category {
-    @SerializedName("skills")
+    @SerializedName("subCategories")
     @Expose
     private ArrayList<String> subCategories;
 
-    @SerializedName("title")
+    @SerializedName("type")
     @Expose
     private String type;
 
@@ -19,7 +19,7 @@ public class Category {
     public Category(String type, ArrayList<String> subCategories, int numOfPeople) {
         this.type = type;
         this.subCategories = subCategories;
-        this.numOfPeople = numOfPeople;
+//        this.numOfPeople = numOfPeople;
     }
 
     public String getType() {

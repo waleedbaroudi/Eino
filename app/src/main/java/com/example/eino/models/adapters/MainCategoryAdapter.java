@@ -1,4 +1,4 @@
-package com.example.eino.models;
+package com.example.eino.models.adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,9 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eino.controllers.UserProfileActivity;
 import com.example.eino.R;
+import com.example.eino.models.Category;
+
+import java.util.ArrayList;
 
 public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.ViewHolder>{
-    String[] cats = {"Programming", "Cooking", "Repairing", "Studying", "Playing an Instrument", "Languages", "Others"};
+    ArrayList<Category> cats;
+
+    public MainCategoryAdapter(ArrayList<Category> cats) {
+        this.cats = cats;
+    }
 
     @NonNull
     @Override
@@ -26,18 +33,13 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.catName.setText(cats[position]);
-        holder.itemCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.getContext().startActivity(new Intent(v.getContext(), UserProfileActivity.class));
-            }
-        });
+        holder.catName.setText(cats.get(position).getType());
+        holder.itemCard.setOnClickListener(v -> v.getContext().startActivity(new Intent(v.getContext(), UserProfileActivity.class)));
     }
 
     @Override
     public int getItemCount() {
-        return cats.length;
+        return cats.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
