@@ -12,6 +12,8 @@ var _config = _interopRequireDefault(require("../config/config"));
 
 var _userRoute = _interopRequireDefault(require("./routes/userRoute"));
 
+var _categoryRoute = _interopRequireDefault(require("./routes/categoryRoute"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //Server Setup
@@ -61,7 +63,8 @@ app.use(function (req, res, next) {
 app.get("/", function (req, res, next) {
   res.send("Testing root endpoint");
 });
-app.use("/users", _userRoute["default"]); //HANDLING ERRORS
+app.use("/users", _userRoute["default"]);
+app.use("/categories", _categoryRoute["default"]); //HANDLING ERRORS
 //if the program reaches this line that means no router in products or orders was able to handle the request therefore we catch an err
 
 app.use(function (req, res, next) {

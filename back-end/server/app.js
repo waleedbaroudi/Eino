@@ -3,7 +3,8 @@ import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import config from "../config/config";
-import userRoute from "./routes/userRoute"
+import userRoute from "./routes/userRoute";
+import categoryRoute from './routes/categoryRoute';
 
 //Server Setup
 const port = 3000 || process.env.PORT;
@@ -56,6 +57,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use("/users", userRoute);
+app.use("/categories", categoryRoute);
 
 //HANDLING ERRORS
 //if the program reaches this line that means no router in products or orders was able to handle the request therefore we catch an err
