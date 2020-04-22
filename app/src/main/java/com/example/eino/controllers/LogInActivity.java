@@ -41,7 +41,9 @@ public class LogInActivity extends AppCompatActivity {
         logInButton = (Button) findViewById(R.id.sign_in_button);
         signUpButton = (Button) findViewById(R.id.sign_up_button);
         usernameField = (TextView) findViewById(R.id.username_field);
+        usernameField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_person_black_24dp,0,0,0);
         passwordField = (TextView) findViewById(R.id.password_field);
+        passwordField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_lock_black_24dp,0,0,0);
         mainLayout = findViewById(R.id.main_cons_layout);
         startComponentAnimation();
         setupClickListeners();
@@ -88,7 +90,7 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (loggedIn)
-            finish();
+//        if (loggedIn)
+//            finish();
     }
 }

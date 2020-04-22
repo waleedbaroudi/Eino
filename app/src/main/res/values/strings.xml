@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Eino</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="name_sign_up">Name</string>
+    <string name="surname_sign_up">Surname</string>
+    <string name="email_sign_up">Email</string>
+    <string name="phone_number_sign_up">Phone number</string>
+    <string name="info_sign_up">Info</string>
+    <string name="info2_sign_up">Info</string>
+    <string name="contact_information_sign_up">Contact Information</string>
+    <string name="password_sign_up">Password</string>
 </resources>
