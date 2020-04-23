@@ -6,13 +6,10 @@ exports.getCategories = (req, res) => {
   Category.find()
     .select()
     .exec()
-    .then((categories) => {
-      const response = {
-        count: categories.length,
-        result: categories,
-      };
-      res.status(200).json(response);
-    })
+    .then((categories) => 
+    
+      res.status(200).json(categories)
+    )
     .catch((err) => {
       res.status(500).json({
         error: err,

@@ -14,11 +14,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 exports.getUsers = function (req, res) {
   _User["default"].find().select().exec().then(function (users) {
-    var response = {
-      count: users.length,
-      result: users
-    };
-    res.status(200).json(response);
+    //   const response = {
+    //     count: users.length,
+    //     result: users,
+    //   };
+    res.status(200).json(users);
   })["catch"](function (err) {
     res.status(500).json({
       error: err
