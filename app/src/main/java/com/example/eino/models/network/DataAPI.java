@@ -13,12 +13,12 @@ import retrofit2.http.Path;
 
 public interface DataAPI {
     @Headers("Content-type: application/json") //TODO: check later
-    @GET("categories") //TODO: ADD SUB URL
+    @GET("categories")
     Call<ArrayList<Category>> getCategories();
 
-    @GET("categories/{id}") //TODO: ADD SUB URL
+    @GET("categories/{id}")
     Call<Category> getCategories(@Path("id") String categoryID);
 
-    @GET("INSERT-SUB-URL") //TODO: ADD SUB URL
+    @GET("INSERT-SUB-URL")
     Call<ArrayList<User>> getUsers();
 }
