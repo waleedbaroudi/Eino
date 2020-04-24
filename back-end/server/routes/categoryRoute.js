@@ -11,4 +11,6 @@ router.get("/:type", categoryController.getUsersInCategory);
 router.post("/", categoryController.addCategory);
 //Add a user ID to a categories
 router.patch("/:type", categoryController.updateCategory);
+//Remove a category depending on type
+router.delete("/:type", categoryController.deleteCategory);
 export default router;

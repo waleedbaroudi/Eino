@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { get } from "mongoose";
 import Category from "../models/Category";
 import config from "../../config/config";
 import locus from "locus";
@@ -77,6 +77,26 @@ exports.updateCategory = (req, res) => {
     .then((category) => {
       res.status(200).json({
         message: `user was added to the users array on ${category.type} object`,
+      });
+    });
+};
+
+//takes a type on the parameter
+exports.deleteCategory = (req, res) => {
+  Category.remove({ type: req.params.type })
+    .exec()
+    .then((category) => {
+      res.status(200).json({
+        message: "Category Deleted",
+        request: {
+          type: "GET",
+          url: config.hostUrl + "/categories"
+        },
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err
       });
     });
 };
