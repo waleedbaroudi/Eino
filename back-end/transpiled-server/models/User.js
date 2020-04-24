@@ -31,8 +31,8 @@ var userSchema = _mongoose["default"].Schema({
   skills: [String],
   avaiable: Boolean,
   contactInfoList: [{
-    type: _mongoose["default"].Schema.Types.ObjectId,
-    ref: 'ContactInfo'
+    kind: String,
+    info: String
   }]
 });
 
