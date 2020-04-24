@@ -27,7 +27,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/mainText"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/editText10"
+                app:layout_constraintBottom_toTopOf="@+id/firstType"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/surnameEditText" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/sign_up_button"
                 android:layout_width="326dp"
                 android:layout_height="51dp"
                 android:layout_marginBottom="24dp"
@@ -75,11 +75,11 @@
                 android:inputType="textPersonName"
                 android:paddingHorizontal="21dp"
                 android:textColor="@color/subText"
-                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintBottom_toTopOf="@+id/sign_up_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText11" />
+                app:layout_constraintTop_toBottomOf="@+id/secondType" />
 
             <EditText
                 android:id="@+id/phoneNumberEditText"
@@ -143,11 +143,11 @@
                 android:inputType="textPersonName"
                 android:paddingHorizontal="21dp"
                 android:textColor="@color/subText"
-                app:layout_constraintBottom_toTopOf="@+id/editText11"
+                app:layout_constraintBottom_toTopOf="@+id/secondType"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText10" />
+                app:layout_constraintTop_toBottomOf="@+id/firstType" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
@@ -162,17 +162,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/editText10"
+            <Spinner
+                android:id="@+id/firstType"
                 android:layout_width="326dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="21dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/text_field_background"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:paddingHorizontal="21dp"
-                android:text="Type"
                 android:textColor="@color/subText"
                 app:layout_constraintBottom_toTopOf="@+id/firstInfoEditText"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -198,16 +195,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
-            <EditText
-                android:id="@+id/editText11"
+            <Spinner
+                android:id="@+id/secondType"
                 android:layout_width="326dp"
                 android:layout_height="52dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/text_field_background"
+
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:paddingHorizontal="21dp"
-                android:text="Type"
                 android:textColor="@color/subText"
                 app:layout_constraintBottom_toTopOf="@+id/secondInfoEditText"
                 app:layout_constraintEnd_toEndOf="parent"
