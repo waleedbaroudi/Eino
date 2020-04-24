@@ -51,6 +51,28 @@ public class UserDataSource {
 
     }
 
+    public boolean validateUser(ArrayList<User> users, String email, String password) {
+        User found = null;
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                found = user;
+                break;
+            }
+        }
+        if (found == null)
+            return false;
+        if (!found.getPassword().equals(password))
+            return false;
+        return true;
+    }
+
+    public ArrayList<String> getEmails(ArrayList<User> users){
+        ArrayList<String> emails = new ArrayList<>();
+        for(User user : users){
+            emails.add(user.getEmail());
+        }
+        return  emails;
+    }
 
     public void setDelegate(UserDataSourceDelegate delegate) {
         this.delegate = delegate;

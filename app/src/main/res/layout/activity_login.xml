@@ -34,8 +34,8 @@
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
-        android:paddingRight="21dp"
         android:paddingLeft="15dp"
+        android:paddingRight="21dp"
         android:textColor="@color/subText"
         app:layout_constraintBottom_toTopOf="@+id/password_field"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,11 +77,23 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:paddingRight="21dp"
         android:paddingLeft="15dp"
+        android:paddingRight="21dp"
         android:textColor="@color/subText"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
         app:layout_constraintEnd_toEndOf="@+id/username_field"
         app:layout_constraintStart_toStartOf="@+id/username_field" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

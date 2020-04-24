@@ -42,7 +42,7 @@ public class CategoryDataSource {
         default void categoriesFetched(ArrayList<Category> categories) {
             Log.e(TAG, "categoriesFetched: ", new IllegalStateException("Delegate not set"));
         }
-        
+
 
 
         void fetchFailure();
