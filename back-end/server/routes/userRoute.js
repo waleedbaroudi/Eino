@@ -12,7 +12,7 @@ router.post("/", userController.addUser);
 //Add the skills to the skills array in the User object
 router.patch("/:email", userController.addUserSkills);
 //Remove a user by passing their id as a paramter
-router.deleteUser("/:id", userController.deleteUser);
+router.delete("/:id", userController.deleteUser);
 
 
 

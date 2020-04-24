@@ -22,6 +22,6 @@ router.post("/", _userController["default"].addUser); //Add the skills to the sk
 
 router.patch("/:email", _userController["default"].addUserSkills); //Remove a user by passing their id as a paramter
 
-router.deleteUser("/:id", _userController["default"].deleteUser);
+router["delete"]("/:id", _userController["default"].deleteUser);
 var _default = router;
 exports["default"] = _default;
