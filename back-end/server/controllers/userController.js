@@ -8,10 +8,6 @@ exports.getUsers = (req, res) => {
     .select()
     .exec()
     .then((users) => {
-    //   const response = {
-    //     count: users.length,
-    //     result: users,
-    //   };
       res.status(200).json(users);
     })
     .catch((err) => {
@@ -55,7 +51,7 @@ exports.addUser = (req, res) => {
     password: req.body.password,
     displayName: req.body.displayName,
     image: req.body.image,
-    skills: req.body.skills,
+    skills: [],
     available: req.body.available,
     contactInfoList: req.body.contactInfoList,
   });
@@ -83,6 +79,21 @@ exports.addUser = (req, res) => {
     .catch((err) => {
       res.status(500).json({
         error: err,
+      });
+    });
+};
+
+
+exports.addUserSkills = (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    { $push: { skills: req.body.skills } }
+  )
+    .exec()
+    .then((user) => {
+      res.status(200).json({
+        message: "Skills were added to the users object",
+        skills: user.skills.concat(...req.body.skills) //?concat and the spread operator to print the current lost of skilss
       });
     });
 };

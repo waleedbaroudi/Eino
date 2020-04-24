@@ -18,6 +18,8 @@ router.get("/", _userController["default"].getUsers); //Get a particular user wi
 
 router.get("/:id", _userController["default"].getUser); //Add a user and get that added user back as a response
 
-router.post("/", _userController["default"].addUser);
+router.post("/", _userController["default"].addUser); //Add the skills to the skills array in the User object
+
+router.patch("/:email", _userController["default"].addUserSkills);
 var _default = router;
 exports["default"] = _default;
