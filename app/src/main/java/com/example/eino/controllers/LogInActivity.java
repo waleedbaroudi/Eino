@@ -101,7 +101,7 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LogInActivity.this, SignupActivity.class));
+                startActivity(new Intent(LogInActivity.this, SignupActivity.class).putExtra("existingEmails", dataSource.getEmails(existingUsers)));
             }
         });
     }

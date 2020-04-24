@@ -40,11 +40,16 @@ public class UserDataSource {
         postUser.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                if (response.code() == 201)
+                    delegate.userAdded(true);
+                else
+                    delegate.userAdded(false);
                 Log.d(TAG, "onPostResponse: posting terminated with code: " + response.code());
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                delegate.userAdded(false);
                 Log.e(TAG, "onPostFailure: posting failed", t);
             }
         });
@@ -66,12 +71,14 @@ public class UserDataSource {
         return true;
     }
 
-    public ArrayList<String> getEmails(ArrayList<User> users){
+    public ArrayList<String> getEmails(ArrayList<User> users) {
+        if (users == null)
+            return null;
         ArrayList<String> emails = new ArrayList<>();
-        for(User user : users){
+        for (User user : users) {
             emails.add(user.getEmail());
         }
-        return  emails;
+        return emails;
     }
 
     public void setDelegate(UserDataSourceDelegate delegate) {
@@ -81,6 +88,10 @@ public class UserDataSource {
     public interface UserDataSourceDelegate {
         default void usersFetched(ArrayList<User> users) {
             Log.d(TAG, "usersFetched: DELEGATE NOT SET");
+        }
+
+        default void userAdded(boolean result) {
+
         }
 
         default void fetchFailure(Throwable t) {

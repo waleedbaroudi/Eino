@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,12 +20,16 @@ import com.example.eino.R;
 import com.example.eino.models.User;
 import com.example.eino.models.data_sources.UserDataSource;
 
-public class SignupActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class SignupActivity extends AppCompatActivity implements UserDataSource.UserDataSourceDelegate {
     private static final int GALLERY_REQUEST_CODE = 111;
 
     UserDataSource dataSource;
 
     Uri imageData;
+
+    private ArrayList<String> existingEmails;
 
     EditText nameField;
     EditText surnameField;
@@ -33,6 +38,8 @@ public class SignupActivity extends AppCompatActivity {
     EditText phoneNumberField;
     EditText firstInfoField;
     EditText secondInfoField;
+
+    ProgressBar progressBar;
 
     Spinner firstInfoType;
     Spinner secondInfoType;
@@ -47,10 +54,14 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        initializeViews();
-        initializeListeners();
         dataSource = new UserDataSource();
+        dataSource.setDelegate(this);
+        initializeViews();
+        progressBar.setVisibility(View.GONE);
+        initializeListeners();
+        existingEmails = getIntent().getExtras().getStringArrayList("existingEmails");
     }
+
 
     @Override
     protected void onResume() {
@@ -72,12 +83,37 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(SignupActivity.this, "Please fill in all mandatory fields", Toast.LENGTH_SHORT).show();
                 return;
             }
-            dataSource.addUser(makeUser());
-            signedUp = true;
-            startActivity(new Intent(SignupActivity.this, MainActivity.class));
+            progressBar.setVisibility(View.VISIBLE);
+            if (existingEmails == null)
+                dataSource.fetchUsers();
+            else
+                usersFetched(null);
         }
     };
 
+    @Override
+    public void usersFetched(ArrayList<User> users) {
+        if (existingEmails == null)
+            existingEmails = dataSource.getEmails(users);
+        if (existingEmails.contains(emailField.getText().toString())) {
+            Toast.makeText(this, "a user with the given email already exists", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+        dataSource.addUser(makeUser());
+    }
+
+    @Override
+    public void userAdded(boolean result) {
+        progressBar.setVisibility(View.GONE);
+        if (result) {
+            Toast.makeText(this, "Registered!", Toast.LENGTH_SHORT).show();
+            signedUp = true;
+            startActivity(new Intent(SignupActivity.this, MainActivity.class));
+        } else
+            Toast.makeText(this, "failed to register new user", Toast.LENGTH_SHORT).show();
+
+    }
 
     private User makeUser() {
         User user = new User();
@@ -131,9 +167,11 @@ public class SignupActivity extends AppCompatActivity {
         firstInfoType.setAdapter(adapter);
         secondInfoType.setAdapter(adapter);
 
+        progressBar = findViewById(R.id.signupProgressBar);
 
         profileImage = findViewById(R.id.profile_image);
 
         signUpButton = findViewById(R.id.sign_up_button);
     }
+
 }
