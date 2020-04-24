@@ -7,7 +7,10 @@ let router = express.Router();
 router.get("/", categoryController.getCategories);
 //Get a the users in a category by the type of the category
 router.get("/:type", categoryController.getUsersInCategory);
-//Add a user and get that added user back as a response
+//Add a category and get that added category back as a response
 router.post("/", categoryController.addCategory);
-
+//Add a user ID to a categories
+router.patch("/:type", categoryController.updateCategory);
+//Remove a category depending on type
+router.delete("/:type", categoryController.deleteCategory);
 export default router;

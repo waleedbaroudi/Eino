@@ -20,6 +20,8 @@ router.get("/:id", _userController["default"].getUser); //Add a user and get tha
 
 router.post("/", _userController["default"].addUser); //Add the skills to the skills array in the User object
 
-router.patch("/:email", _userController["default"].addUserSkills);
+router.patch("/:email", _userController["default"].addUserSkills); //Remove a user by passing their id as a paramter
+
+router.deleteUser("/:id", _userController["default"].deleteUser);
 var _default = router;
 exports["default"] = _default;
