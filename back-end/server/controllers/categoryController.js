@@ -40,7 +40,7 @@ exports.addCategory = (req, res) => {
     _id: new mongoose.Types.ObjectId(),
     type: req.body.type,
     subCategories: req.body.subCategories,
-    users: [] 
+    users: [],
   });
 
   category
@@ -63,6 +63,20 @@ exports.addCategory = (req, res) => {
     .catch((err) => {
       res.status(500).json({
         error: err,
+      });
+    });
+};
+
+//take a body of _id:
+exports.updateCategory = (req, res) => {
+  Category.findOneAndUpdate(
+    { type: req.params.type },
+    { $push: { users: req.body._id } }
+  )
+    .exec()
+    .then((category) => {
+      res.status(200).json({
+        message: `user was added to the users array on ${category.type} object`,
       });
     });
 };

@@ -83,7 +83,6 @@ exports.addUser = (req, res) => {
     });
 };
 
-
 exports.addUserSkills = (req, res) => {
   User.findOneAndUpdate(
     { email: req.params.email },

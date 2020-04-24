@@ -16,8 +16,10 @@ var router = _express["default"].Router(); //Get a list of all users
 
 router.get("/", _categoryController["default"].getCategories); //Get a the users in a category by the type of the category
 
-router.get("/:type", _categoryController["default"].getUsersInCategory); //Add a user and get that added user back as a response
+router.get("/:type", _categoryController["default"].getUsersInCategory); //Add a category and get that added category back as a response
 
-router.post("/", _categoryController["default"].addCategory);
+router.post("/", _categoryController["default"].addCategory); //Add a user ID to a categories
+
+router.patch("/:type", _categoryController["default"].updateCategory);
 var _default = router;
 exports["default"] = _default;

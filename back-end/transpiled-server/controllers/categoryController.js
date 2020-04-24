@@ -63,4 +63,19 @@ exports.addCategory = function (req, res) {
       error: err
     });
   });
+}; //take a body of _id:
+
+
+exports.updateCategory = function (req, res) {
+  _Category["default"].findOneAndUpdate({
+    type: req.params.type
+  }, {
+    $push: {
+      users: req.body._id
+    }
+  }).exec().then(function (category) {
+    res.status(200).json({
+      message: "user was added to the users array on ".concat(category.type, " object")
+    });
+  });
 };
