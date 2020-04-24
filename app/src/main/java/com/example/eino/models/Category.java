@@ -13,6 +13,7 @@ public class Category {
     @SerializedName("type")
     @Expose
     private String type;
+
     @SerializedName("_id")
     @Expose
     private String id;

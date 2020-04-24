@@ -35,7 +35,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.catName.setText(cats.get(position).getType());
-        holder.itemCard.setOnClickListener(v -> v.getContext().startActivity(new Intent(v.getContext(), SubCategoryActivity.class).putExtra("catID", cats.get(position).getId())));
+        holder.itemCard.setOnClickListener(v -> v.getContext().startActivity(new Intent(v.getContext(), SubCategoryActivity.class).putExtra("subcategories", cats.get(position).getSubCategories())));
     }
 
     @Override

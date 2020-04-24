@@ -32,22 +32,6 @@ public class CategoryDataSource {
                 delegate.fetchFailure();
             }
         });
-
-    }
-
-    public void fetchSubCategories(String categoryID) {
-        Call<Category> call = network.getDataAPI().getCategories(categoryID);
-        call.enqueue(new Callback<Category>() {
-            @Override
-            public void onResponse(Call<Category> call, Response<Category> response) {
-                delegate.subcategoriesFetched(response.body().getSubCategories());
-            }
-
-            @Override
-            public void onFailure(Call<Category> call, Throwable t) {
-                delegate.fetchFailure();
-            }
-        });
     }
 
     public void setDelegate(CategoryDataSourceDelegate delegate) {
@@ -58,12 +42,7 @@ public class CategoryDataSource {
         default void categoriesFetched(ArrayList<Category> categories) {
             Log.e(TAG, "categoriesFetched: ", new IllegalStateException("Delegate not set"));
         }
-
-        ;
-
-        default void subcategoriesFetched(ArrayList<String> subcats) {
-            Log.e(TAG, "categoriesFetched: ", new IllegalStateException("Delegate not set"));
-        }
+        
 
 
         void fetchFailure();

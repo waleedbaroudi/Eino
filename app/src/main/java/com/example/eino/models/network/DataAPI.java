@@ -7,8 +7,11 @@ import com.example.eino.models.User;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface DataAPI {
@@ -19,6 +22,14 @@ public interface DataAPI {
     @GET("categories/{id}")
     Call<Category> getCategories(@Path("id") String categoryID);
 
-    @GET("INSERT-SUB-URL")
+    @GET("users")
     Call<ArrayList<User>> getUsers();
+
+    @GET("categories/{type}")
+    Call<ArrayList<User>> getUsers(@Path("type") String type);
+
+    @POST("users")
+    Call<User> postUser(@Body User user);
+
+//    @PATCH
 }

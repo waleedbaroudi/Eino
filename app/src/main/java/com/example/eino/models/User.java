@@ -1,18 +1,28 @@
 package com.example.eino.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class User {
-private  final String ID;
-private String email;
-private String password;
-private String displayName;
-private ContactInfo contactInfo;
-private int profilePicture; //TODO: EDIT LATER
-private LinkedList<String> skills;
-private boolean available;
+    @SerializedName("_id")
+    @Expose
+    private String ID;
+    private String email;
+    private String password;
+    private String displayName;
+    @SerializedName("contactInfoList")
+    @Expose
+    private ArrayList<ContactInfo> contactInfo = new ArrayList<>();
+    @SerializedName("image")
+    @Expose
+    private String profilePicture; //TODO: EDIT LATER
+    private LinkedList<String> skills = new LinkedList<>();
+    private boolean available;
 
-    public User(String ID, String email, String password, String displayName, ContactInfo contactInfo, int profilePicture) {
+    public User(String ID, String email, String password, String displayName, ArrayList<ContactInfo> contactInfo, String profilePicture) {
         this.ID = ID;
         this.email = email;
         this.password = password;
@@ -21,15 +31,19 @@ private boolean available;
         this.profilePicture = profilePicture;
     }
 
-    public void addSkill(String skill){
+    public User(String ID, String email, String password, String name, String surname, ArrayList<ContactInfo> contactInfo, String profilePicture) {
+        this(ID,email, password, name + " " + surname, contactInfo, profilePicture);
+    }
+
+    public User() {
+        //to facilitate makeUser method in signUpActivity
+    }
+
+    public void addSkill(String skill) {
         skills.add(skill);
     }
 
     //getters
-    public String getID() {
-        return ID;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -42,11 +56,11 @@ private boolean available;
         return displayName;
     }
 
-    public ContactInfo getContactInfo() {
+    public ArrayList<ContactInfo> getContactInfo() {
         return contactInfo;
     }
 
-    public int getProfilePicture() {
+    public String getProfilePicture() {
         return profilePicture;
     }
 
@@ -72,11 +86,11 @@ private boolean available;
         this.displayName = displayName;
     }
 
-    public void setContactInfo(ContactInfo contactInfo) {
-        this.contactInfo = contactInfo;
+    public void addContactInfo(String type, String info) {
+        this.contactInfo.add(new ContactInfo(type, info));
     }
 
-    public void setProfilePicture(int profilePicture) {
+    public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
 
@@ -84,7 +98,7 @@ private boolean available;
         this.available = available;
     }
 
-    private class ContactInfo {
+    public class ContactInfo {
         String type;
         String info;
 

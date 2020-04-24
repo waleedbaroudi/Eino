@@ -14,7 +14,7 @@ import com.example.eino.models.data_sources.CategoryDataSource;
 
 import java.util.ArrayList;
 
-public class SubCategoryActivity extends AppCompatActivity implements CategoryDataSource.CategoryDataSourceDelegate {
+public class SubCategoryActivity extends AppCompatActivity {
     RecyclerView subCatRecycler;
     CategoryDataSource dataSource;
 
@@ -23,21 +23,9 @@ public class SubCategoryActivity extends AppCompatActivity implements CategoryDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
         subCatRecycler = findViewById(R.id.subcat_recycler);
-        dataSource = new CategoryDataSource();
-        dataSource.setDelegate(this);
-        dataSource.fetchSubCategories(getIntent().getExtras().getString("catID"));
-    }
-
-
-    @Override
-    public void subcategoriesFetched(ArrayList<String> subcats) {
+        ArrayList<String> subcats = getIntent().getExtras().getStringArrayList("subcategories");
         SubCategoryAdapter adapter = new SubCategoryAdapter(subcats);
         subCatRecycler.setAdapter(adapter);
         subCatRecycler.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    @Override
-    public void fetchFailure() {
-        Toast.makeText(this, "Failed to load subcategories", Toast.LENGTH_LONG).show();
     }
 }

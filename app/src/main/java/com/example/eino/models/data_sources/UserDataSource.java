@@ -15,7 +15,8 @@ public class UserDataSource {
     private static final String TAG = "UserDataSource";
     UserDataSourceDelegate delegate;
     Network network = Network.getInstance();
-    public void fetchUsers(){
+
+    public void fetchUsers() {
         Call<ArrayList<User>> call = network.getDataAPI().getUsers();
         call.enqueue(new Callback<ArrayList<User>>() {
             @Override
@@ -28,14 +29,25 @@ public class UserDataSource {
                 delegate.fetchFailure(t);
             }
         });
+    }
+
+    public void fetchUsers(String Category) {
 
     }
 
-    public void fetchUsers(String Category){
+    public void addUser(User user) {
+        Call<User> postUser = network.getDataAPI().postUser(user);
+        postUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d(TAG, "onPostResponse: posting terminated with code: " + response.code());
+            }
 
-    }
-
-    public void addUser(User user){
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(TAG, "onPostFailure: posting failed", t);
+            }
+        });
 
     }
 
@@ -44,12 +56,12 @@ public class UserDataSource {
         this.delegate = delegate;
     }
 
-    public interface UserDataSourceDelegate{
-        default void usersFetched(ArrayList<User> users){
+    public interface UserDataSourceDelegate {
+        default void usersFetched(ArrayList<User> users) {
             Log.d(TAG, "usersFetched: DELEGATE NOT SET");
         }
 
-        default void fetchFailure(Throwable t){
+        default void fetchFailure(Throwable t) {
             Log.d(TAG, "fetchFailure: DELEGATE NOT SET");
         }
     }
