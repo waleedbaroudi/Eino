@@ -15,8 +15,12 @@ var categorySchema = _mongoose["default"].Schema({
     type: String,
     required: true
   },
-  subCategories: [String] //Optional field
-
+  subCategories: [String],
+  //Optional field
+  users: [{
+    type: _mongoose["default"].Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 });
 
 var _default = _mongoose["default"].model('Category', categorySchema);

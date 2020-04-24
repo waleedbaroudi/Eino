@@ -1,18 +1,13 @@
 import mongoose from "mongoose";
 import User from "../models/User";
 import config from "../../config/config";
-import ContactInfo from "../models/ContactInfo";
-import locus from 'locus';
+import locus from "locus";
 
 exports.getUsers = (req, res) => {
   User.find()
     .select()
     .exec()
     .then((users) => {
-    //   const response = {
-    //     count: users.length,
-    //     result: users,
-    //   };
       res.status(200).json(users);
     })
     .catch((err) => {
@@ -35,7 +30,7 @@ exports.getUser = (req, res) => {
           image: user.image,
           skills: user.skills,
           available: user.available,
-          contactInfoList: user.contactInfoList
+          contactInfoList: user.contactInfoList,
         });
       } else
         res.status(404).json({
@@ -56,8 +51,9 @@ exports.addUser = (req, res) => {
     password: req.body.password,
     displayName: req.body.displayName,
     image: req.body.image,
-    skills: req.body.skills,
+    skills: [],
     available: req.body.available,
+    contactInfoList: req.body.contactInfoList,
   });
   user
     .save()
@@ -72,9 +68,10 @@ exports.addUser = (req, res) => {
           image: user.image,
           skills: user.skills,
           available: user.available,
+          contactInfoList: user.contactInfoList,
           request: {
             type: "GET",
-            url: config.hostUrl + "users/" + user._id
+            url: config.hostUrl + "users/" + user._id,
           },
         },
       });
@@ -82,6 +79,21 @@ exports.addUser = (req, res) => {
     .catch((err) => {
       res.status(500).json({
         error: err,
+      });
+    });
+};
+
+
+exports.addUserSkills = (req, res) => {
+  User.findOneAndUpdate(
+    { email: req.params.email },
+    { $push: { skills: req.body.skills } }
+  )
+    .exec()
+    .then((user) => {
+      res.status(200).json({
+        message: "Skills were added to the users object",
+        skills: user.skills.concat(...req.body.skills) //?concat and the spread operator to print the current lost of skilss
       });
     });
 };

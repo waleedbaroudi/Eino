@@ -5,8 +5,8 @@ let router = express.Router();
 
 //Get a list of all users
 router.get("/", categoryController.getCategories);
-//Get a particular user with their unique ID
-router.get("/:id", categoryController.getCategory);
+//Get a the users in a category by the type of the category
+router.get("/:type", categoryController.getUsersInCategory);
 //Add a user and get that added user back as a response
 router.post("/", categoryController.addCategory);
 

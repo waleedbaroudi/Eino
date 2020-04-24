@@ -9,6 +9,8 @@ router.get("/", userController.getUsers);
 router.get("/:id", userController.getUser)
 //Add a user and get that added user back as a response
 router.post("/", userController.addUser);
+//Add the skills to the skills array in the User object
+router.patch("/:email", userController.addUserSkills);
 
 
 
