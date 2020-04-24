@@ -96,3 +96,23 @@ exports.addUserSkills = (req, res) => {
       });
     });
 };
+
+//takes a type on the parameter
+exports.deleteUser = (req, res) => {
+  User.remove({ _id: req.params.id })
+    .exec()
+    .then((user) => {
+      res.status(200).json({
+        message: "User Deleted",
+        request: {
+          type: "GET",
+          url: config.hostUrl + "/users"
+        },
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err
+      });
+    });
+};
