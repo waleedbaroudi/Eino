@@ -1,5 +1,6 @@
 package com.example.eino.controllers;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -11,12 +12,14 @@ import com.example.eino.models.User;
 import com.example.eino.models.data_sources.UserDataSource;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
@@ -29,7 +32,18 @@ import java.util.stream.Collectors;
 
 public class LogInActivity extends AppCompatActivity implements UserDataSource.UserDataSourceDelegate {
 
+    private static final String TAG = "LogInActivity";
+
     private boolean loggedIn = false;
+
+    private static final String SHARED_PREFS = "userSharedPrefs";
+    private static final String EMAIL_SP_KEY = "savedUserEmail";
+    private static final String PASSWORD_SP_KEY = "savedUserPassword";
+    private static final String ID_SP_KEY = "savedUserID";
+    private String foundUserId;
+
+    SharedPreferences sharedPreferences;
+
 
     Button logInButton;
     Button signUpButton;
@@ -51,6 +65,8 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        getSavedUser();
         dataSource = new UserDataSource();
         dataSource.setDelegate(this);
         progressBar = findViewById(R.id.progressBar);
@@ -64,6 +80,13 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
         mainLayout = findViewById(R.id.main_cons_layout);
         startComponentAnimation();
         setupClickListeners();
+    }
+
+    public void getSavedUser() {
+        String email = sharedPreferences.getString(EMAIL_SP_KEY, "");
+        String password = sharedPreferences.getString(PASSWORD_SP_KEY, "");
+        if (!email.isEmpty() && !password.isEmpty())
+            startActivity(new Intent(LogInActivity.this, MainActivity.class));
     }
 
     public void startComponentAnimation() {
@@ -83,37 +106,39 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
     }
 
     public void setupClickListeners() {
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (usernameField.getText().length() == 0 || passwordField.getText().length() == 0) {
-                    Toast.makeText(LogInActivity.this, "Please fill log in info", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                progressBar.setVisibility(View.VISIBLE);
-                if (existingUsers == null)
-                    dataSource.fetchUsers();
-                else
-                    usersFetched(null);
+        logInButton.setOnClickListener(v -> {
+            if (usernameField.getText().length() == 0 || passwordField.getText().length() == 0) {
+                Toast.makeText(LogInActivity.this, "Please fill log in info", Toast.LENGTH_SHORT).show();
+                return;
             }
+            progressBar.setVisibility(View.VISIBLE);
+            if (existingUsers == null)
+                dataSource.fetchUsers();
+            else
+                usersFetched(null);
         });
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LogInActivity.this, SignupActivity.class).putExtra("existingEmails", dataSource.getEmails(existingUsers)));
-            }
-        });
+        signUpButton.setOnClickListener(v -> startActivity(new Intent(LogInActivity.this, SignupActivity.class).putExtra("existingEmails", dataSource.getEmails(existingUsers))));
+    }
+
+    public void saveUserData() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(EMAIL_SP_KEY, usernameField.getText().toString());
+        editor.putString(PASSWORD_SP_KEY, passwordField.getText().toString());
+        editor.putString(ID_SP_KEY, foundUserId);
+        editor.commit();
     }
 
     @Override
     public void usersFetched(ArrayList<User> users) {
         if (existingUsers == null)
             existingUsers = users;
-        if (dataSource.validateUser(existingUsers, usernameField.getText().toString(), passwordField.getText().toString())) {
+        foundUserId = dataSource.validateUser(existingUsers, usernameField.getText().toString(), passwordField.getText().toString());
+        if (foundUserId != null) {
             Toast.makeText(this, "Logged in!", Toast.LENGTH_SHORT).show();
             loggedIn = true;
             existingUsers = null;
+            saveUserData();
             progressBar.setVisibility(View.INVISIBLE);
             startActivity(new Intent(LogInActivity.this, MainActivity.class));
         } else {
@@ -128,4 +153,5 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
         if (loggedIn)
             finish();
     }
+
 }

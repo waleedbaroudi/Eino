@@ -56,7 +56,7 @@ public class UserDataSource {
 
     }
 
-    public boolean validateUser(ArrayList<User> users, String email, String password) {
+    public String validateUser(ArrayList<User> users, String email, String password) {
         User found = null;
         for (User user : users) {
             if (user.getEmail().equals(email)) {
@@ -65,10 +65,10 @@ public class UserDataSource {
             }
         }
         if (found == null)
-            return false;
+            return null;
         if (!found.getPassword().equals(password))
-            return false;
-        return true;
+            return null;
+        return found.getID();
     }
 
     public ArrayList<String> getEmails(ArrayList<User> users) {

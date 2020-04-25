@@ -32,7 +32,7 @@ public class User {
     }
 
     public User(String ID, String email, String password, String name, String surname, ArrayList<ContactInfo> contactInfo, String profilePicture) {
-        this(ID,email, password, name + " " + surname, contactInfo, profilePicture);
+        this(ID, email, password, name + " " + surname, contactInfo, profilePicture);
     }
 
     public User() {
@@ -96,6 +96,10 @@ public class User {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public String getID() {
+        return ID;
     }
 
     public class ContactInfo {
