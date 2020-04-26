@@ -106,6 +106,21 @@ public class User {
         return getEmail().substring(0, getEmail().indexOf('@'));
     }
 
+    public String getDescription(String firstSkill) {
+        String description = "Knows: ";
+        description += firstSkill;
+        int numOfSkills = 0;
+        for (String skill : getSkills()) {
+            if (numOfSkills == 2)
+                break;
+            if (skill.equals(firstSkill))
+                continue;
+            description += (", " + skill);
+            numOfSkills++;
+        }
+        return description;
+    }
+
     public class ContactInfo {
         String type;
         String info;

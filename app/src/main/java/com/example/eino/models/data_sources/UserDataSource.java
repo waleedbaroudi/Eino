@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.eino.models.User;
 import com.example.eino.models.network.Network;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -31,8 +32,28 @@ public class UserDataSource {
         });
     }
 
-    public void fetchUsers(String Category) {
+    public void fetchUsers(String category) {
+        Call<ArrayList<User>> usersByCategory = network.getDataAPI().getUsers(category);
+        usersByCategory.enqueue(new Callback<ArrayList<User>>() {
+            @Override
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                delegate.fetchedUsersByCategory(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    public ArrayList<User> filterBySubcategory(ArrayList<User> users, String subCat) {
+        ArrayList<User> filtered = new ArrayList<>();
+        for (User user : users) {
+            if (user.getSkills().contains(subCat))
+                filtered.add(user);
+        }
+        return filtered;
     }
 
     public void addUser(User user) {
@@ -56,7 +77,7 @@ public class UserDataSource {
 
     }
 
-    public void getUserByID(String id){
+    public void getUserByID(String id) {
         Call<User> getUser = network.getDataAPI().getUserByID(id);
         getUser.enqueue(new Callback<User>() {
             @Override
@@ -105,12 +126,16 @@ public class UserDataSource {
             Log.d(TAG, "usersFetched: DELEGATE NOT SET");
         }
 
-        default void userFetched(User user){
+        default void userFetched(User user) {
             Log.d(TAG, "usersFetched: DELEGATE NOT SET");
         }
 
         default void userAdded(boolean result) {
 
+        }
+
+        default void fetchedUsersByCategory(ArrayList<User> users) {
+            Log.d(TAG, "fetchedUsersByCategory: DELEGATE NOT SET");
         }
 
         default void fetchFailure(Throwable t) {

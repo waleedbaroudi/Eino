@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class SubCategoryActivity extends AppCompatActivity {
     RecyclerView subCatRecycler;
-    CategoryDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,8 @@ public class SubCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sub_category);
         subCatRecycler = findViewById(R.id.subcat_recycler);
         ArrayList<String> subcats = getIntent().getExtras().getStringArrayList("subcategories");
-        SubCategoryAdapter adapter = new SubCategoryAdapter(subcats);
+        String selectedCategory = getIntent().getExtras().getString("selectedCategory");
+        SubCategoryAdapter adapter = new SubCategoryAdapter(subcats, selectedCategory);
         subCatRecycler.setAdapter(adapter);
         subCatRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
