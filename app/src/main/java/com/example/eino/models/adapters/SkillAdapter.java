@@ -31,7 +31,8 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     @Override
     public void onBindViewHolder(@NonNull SkillViewHolder holder, int position) {
-        holder.skillImage.setImageResource(R.drawable.c_icon_grad);
+        int imageResId = holder.getImageResource(getImageName(skills.get(position)));
+        holder.skillImage.setImageResource(imageResId);
         holder.skillName.setText(skills.get(position));
     }
 
@@ -46,7 +47,7 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
             imageName = "cpp";
         if (name.toLowerCase().equals("c#"))
             imageName = "csharp";
-        return imageName.toLowerCase() + "_icon.png";
+        return imageName.toLowerCase() + "_icon";
     }
 
     public class SkillViewHolder extends RecyclerView.ViewHolder {
@@ -54,11 +55,18 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         TextView skillName;
         CheckBox skillCheck;
 
+        View view;
+
         public SkillViewHolder(@NonNull View itemView) {
             super(itemView);
             skillImage = itemView.findViewById(R.id.skill_image);
             skillName = itemView.findViewById(R.id.skill_name);
             skillCheck = itemView.findViewById(R.id.skill_check);
+            view = itemView;
+        }
+
+        public int getImageResource(String imageName) {
+            return view.getResources().getIdentifier(imageName, "drawable", view.getContext().getPackageName());
         }
     }
 }
