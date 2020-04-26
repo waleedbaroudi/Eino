@@ -56,6 +56,21 @@ public class UserDataSource {
 
     }
 
+    public void getUserByID(String id){
+        Call<User> getUser = network.getDataAPI().getUserByID(id);
+        getUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                delegate.userFetched(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
     public String validateUser(ArrayList<User> users, String email, String password) {
         User found = null;
         for (User user : users) {
@@ -87,6 +102,10 @@ public class UserDataSource {
 
     public interface UserDataSourceDelegate {
         default void usersFetched(ArrayList<User> users) {
+            Log.d(TAG, "usersFetched: DELEGATE NOT SET");
+        }
+
+        default void userFetched(User user){
             Log.d(TAG, "usersFetched: DELEGATE NOT SET");
         }
 

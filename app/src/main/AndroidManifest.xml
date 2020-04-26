@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controllers.SubCategoryActivity"></activity>
+        <activity android:name=".controllers.UsersActivity"></activity>
+        <activity android:name=".controllers.SubCategoryActivity" />
         <activity
             android:name=".controllers.MainActivity"
             android:screenOrientation="portrait"
@@ -26,8 +27,9 @@
             android:name=".controllers.fragments.CategoryFragment"
             android:label="Categories"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".controllers.SignupActivity"
-            android:theme="@style/AppTheme.noActionBar"/>
+        <activity
+            android:name=".controllers.SignupActivity"
+            android:theme="@style/AppTheme.noActionBar" />
         <activity
             android:name=".controllers.LogInActivity"
             android:screenOrientation="portrait"

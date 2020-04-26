@@ -34,7 +34,7 @@ public class UserProfileActivity extends AppCompatActivity {
         infoCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spreadSet.connect(R.id.textView, ConstraintSet.TOP, R.id.user_layout, ConstraintSet.TOP, 150);
+                spreadSet.connect(R.id.name_label, ConstraintSet.TOP, R.id.user_layout, ConstraintSet.TOP, 150);
                 spreadSet.applyTo(userLayout);
                 imageView.setVisibility(imageView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
                 topImage.setVisibility(topImage.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);

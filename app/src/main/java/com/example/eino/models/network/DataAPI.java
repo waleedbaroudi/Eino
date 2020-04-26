@@ -28,6 +28,9 @@ public interface DataAPI {
     @GET("categories/{type}")
     Call<ArrayList<User>> getUsers(@Path("type") String type);
 
+    @GET("users/{id}")
+    Call<User> getUserByID(@Path("id") String id);
+
     @POST("users")
     Call<User> postUser(@Body User user);
 

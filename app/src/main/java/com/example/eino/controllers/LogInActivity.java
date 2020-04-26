@@ -36,10 +36,10 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
 
     private boolean loggedIn = false;
 
-    private static final String SHARED_PREFS = "userSharedPrefs";
+    public static final String SHARED_PREFS = "userSharedPrefs";
     private static final String EMAIL_SP_KEY = "savedUserEmail";
     private static final String PASSWORD_SP_KEY = "savedUserPassword";
-    private static final String ID_SP_KEY = "savedUserID";
+    public static final String ID_SP_KEY = "savedUserID";
     private String foundUserId;
 
     SharedPreferences sharedPreferences;

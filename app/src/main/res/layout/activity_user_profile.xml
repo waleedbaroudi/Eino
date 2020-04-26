@@ -61,7 +61,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="3dp"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/username_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="3dp"
@@ -87,9 +87,9 @@
         android:textColor="#64FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/name_label"
+        app:layout_constraintStart_toStartOf="@+id/name_label"
+        app:layout_constraintTop_toBottomOf="@+id/name_label"
         app:layout_constraintVertical_bias="0.0" />
 
     <ScrollView

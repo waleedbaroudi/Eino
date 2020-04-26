@@ -102,6 +102,10 @@ public class User {
         return ID;
     }
 
+    public String getUsername() {
+        return getEmail().substring(0, getEmail().indexOf('@'));
+    }
+
     public class ContactInfo {
         String type;
         String info;
