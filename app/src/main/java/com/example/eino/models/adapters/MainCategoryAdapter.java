@@ -31,6 +31,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         return holder;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.catName.setText(cats.get(position).getType());
@@ -46,6 +47,8 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     public int getItemCount() {
         return cats.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView catName;

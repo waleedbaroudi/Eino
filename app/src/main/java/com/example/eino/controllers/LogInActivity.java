@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.eino.R;
 import com.example.eino.controllers.fragments.CategoryFragment;
+import com.example.eino.models.Categories;
 import com.example.eino.models.User;
 import com.example.eino.models.data_sources.UserDataSource;
 
@@ -71,6 +72,7 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
         dataSource.setDelegate(this);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        Categories.getInstance();
         logInButton = (Button) findViewById(R.id.sign_in_button);
         signUpButton = (Button) findViewById(R.id.sign_up_button);
         usernameField = (TextView) findViewById(R.id.username_field);
