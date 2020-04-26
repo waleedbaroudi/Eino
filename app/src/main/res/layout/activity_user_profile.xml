@@ -122,7 +122,7 @@
                 android:textSize="27sp" />
 
             <com.nex3z.flowlayout.FlowLayout
-                android:id="@+id/flowLayout"
+                android:id="@+id/skillsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

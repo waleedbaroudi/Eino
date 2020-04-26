@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".controllers.UsersActivity"></activity>
-        <activity android:name=".controllers.SubCategoryActivity" />
+        <activity android:name=".controllers.SubCategoryActivity"
+            android:theme="@style/AppTheme.noActionBar"/>
         <activity
             android:name=".controllers.MainActivity"
             android:screenOrientation="portrait"

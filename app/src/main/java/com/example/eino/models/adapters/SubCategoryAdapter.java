@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eino.R;
@@ -28,7 +29,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rounded_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -36,7 +37,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.catName.setText(subcats.get(position));
-        holder.itemCard.setOnClickListener(v -> {
+        holder.item.setOnClickListener(v -> {
             Intent toUsersActivity = new Intent(v.getContext(), UsersActivity.class);
             toUsersActivity.putExtra("selectedSubCat", subcats.get(position));
             toUsersActivity.putExtra("selectedCategory", selecteCategory);
@@ -51,12 +52,12 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView catName;
-        CardView itemCard;
+        ConstraintLayout item;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.item_name);
-            itemCard = itemView.findViewById(R.id.item_card);
+            item = itemView.findViewById(R.id.item_layout);
         }
     }
 }
