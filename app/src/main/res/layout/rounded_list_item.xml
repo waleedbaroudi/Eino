@@ -12,7 +12,7 @@
         android:layout_height="123dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/ruby_icon_grad"
+        android:src="@drawable/ruby_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.5"
