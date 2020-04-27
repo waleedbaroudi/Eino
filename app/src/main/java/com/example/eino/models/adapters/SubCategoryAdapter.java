@@ -7,23 +7,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eino.R;
-import com.example.eino.controllers.UserProfileActivity;
 import com.example.eino.controllers.UsersActivity;
 
 import java.util.ArrayList;
 
 public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ViewHolder> {
     private ArrayList<String> subcats;
-    private String selecteCategory;
+    private String selectedCategory;
 
-    public SubCategoryAdapter(ArrayList<String> subcats, String selecteCategory) {
+    public SubCategoryAdapter(ArrayList<String> subcats, String selectedCategory) {
         this.subcats = subcats;
-        this.selecteCategory = selecteCategory;
+        this.selectedCategory = selectedCategory;
     }
 
     @NonNull
@@ -40,7 +38,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         holder.item.setOnClickListener(v -> {
             Intent toUsersActivity = new Intent(v.getContext(), UsersActivity.class);
             toUsersActivity.putExtra("selectedSubCat", subcats.get(position));
-            toUsersActivity.putExtra("selectedCategory", selecteCategory);
+            toUsersActivity.putExtra("selectedCategory", selectedCategory);
             v.getContext().startActivity(toUsersActivity);
         });
     }

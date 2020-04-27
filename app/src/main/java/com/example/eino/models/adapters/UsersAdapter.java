@@ -18,7 +18,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
-    ArrayList<User> users = new ArrayList<>();
+    ArrayList<User> users;
     String selectedSkill = "";
 
     public UsersAdapter(ArrayList<User> users, String selectedSkill) {

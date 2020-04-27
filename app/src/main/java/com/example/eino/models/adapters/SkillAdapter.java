@@ -1,5 +1,6 @@
 package com.example.eino.models.adapters;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eino.R;
-import com.example.eino.models.Categories;
 
 import java.util.ArrayList;
 
@@ -18,8 +18,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHolder> {
 
-    ArrayList<String> skills = Categories.getInstance().getAllsubcats();
+    ArrayList<String> skills;
 
+    public SkillAdapter(ArrayList<String> skills) {
+        this.skills = skills;
+    }
 
     @NonNull
     @Override
@@ -48,6 +51,11 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         if (name.toLowerCase().equals("c#"))
             imageName = "csharp";
         return imageName.toLowerCase() + "_icon";
+    }
+
+    public void filteredList(ArrayList<String> filtered){
+        skills = filtered;
+        notifyDataSetChanged();
     }
 
     public class SkillViewHolder extends RecyclerView.ViewHolder {
