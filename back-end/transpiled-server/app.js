@@ -44,7 +44,10 @@ app.use((0, _morgan["default"])("dev")); //Parse the data from the requests we g
 app.use(_express["default"].urlencoded({
   extended: false
 }));
-app.use(_express["default"].json()); //To prevent CORS errors
+app.use(_express["default"].json()); //Make the uploads folder available for everyone so we can use the link we get from the GET method to get the image.
+//This makes it so it only parses the requests that start with /uploads
+
+app.use('/uploads', _express["default"]["static"]('uploads')); //To prevent CORS errors
 //We need to append headers before the response is sent back to the client
 //These headers tell the browser that we allow a client has a different origin from our server to get the response.
 

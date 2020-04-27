@@ -32,6 +32,9 @@ app.use(morgan("dev"));
 //Parse the data from the requests we get so we can extract them.
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+//Make the uploads folder available for everyone so we can use the link we get from the GET method to get the image.
+//This makes it so it only parses the requests that start with /uploads
+app.use('/uploads', express.static('uploads'));
 
 
 //To prevent CORS errors

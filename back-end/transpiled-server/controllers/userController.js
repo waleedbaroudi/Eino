@@ -63,7 +63,7 @@ exports.addUser = function (req, res) {
     email: req.body.email,
     password: req.body.password,
     displayName: req.body.displayName,
-    image: req.body.image,
+    image: req.file.path,
     skills: [],
     available: req.body.available,
     contactInfoList: req.body.contactInfoList
