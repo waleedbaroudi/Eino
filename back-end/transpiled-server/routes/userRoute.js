@@ -19,7 +19,7 @@ var storage = _multer["default"].diskStorage({
     cb(null, "./uploads/");
   },
   filename: function filename(req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
+    cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
   }
 });
 
