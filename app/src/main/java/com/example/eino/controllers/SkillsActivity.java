@@ -41,6 +41,7 @@ public class SkillsActivity extends AppCompatActivity {
         dataSource = new UserDataSource();
         allSkills = Categories.getInstance().getSkills();
         addButton = findViewById(R.id.add_button);
+        addButton.setOnClickListener(addListener);
         searchField = findViewById(R.id.search_field);
         searchField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_24dp, 0, 0, 0);
         searchField.addTextChangedListener(searchChange);
@@ -72,11 +73,10 @@ public class SkillsActivity extends AppCompatActivity {
     View.OnClickListener addListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "onClick: PATCHING SKILLS");
-//                String email = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.em);
-                
-//            dataSource.addUserSkills();
-
+            String email = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.EMAIL_SP_KEY, "");
+            ArrayList<String> skills = ((SkillAdapter) skillsRecycler.getAdapter()).getSelectedSkills();
+            Log.d(TAG, "onClick: PATCHING " + skills.size() + " SKILLS TO USER: " + email);
+            dataSource.addUserSkills(email, skills);
         }
     };
 
