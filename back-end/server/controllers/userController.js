@@ -86,13 +86,13 @@ exports.addUser = (req, res) => {
 exports.addUserSkills = (req, res) => {
   User.findOneAndUpdate(
     { email: req.params.email },
-    { $push: { skills: req.body.skills } }
+    { skills: { skills: req.body.skills } }
   )
     .exec()
     .then((user) => {
       res.status(200).json({
-        message: "Skills were added to the users object",
-        skills: user.skills.concat(...req.body.skills) //?concat and the spread operator to print the current lost of skilss
+        message: "Skills were updated",
+        skills: req.body.skills //?concat and the spread operator to print the current lost of skilss
       });
     });
 };
