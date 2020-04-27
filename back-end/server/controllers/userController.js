@@ -63,7 +63,7 @@ exports.addUser = (req, res) => {
           email: user.email,
           password: user.password,
           displayName: user.displayName,
-          image: user.image,
+          image: config.hostUrl + '/' + user.image,
           skills: user.skills,
           available: user.available,
           contactInfoList: user.contactInfoList,
