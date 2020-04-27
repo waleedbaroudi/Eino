@@ -32,10 +32,9 @@ public interface DataAPI {
     @GET("users/{id}")
     Call<User> getUserByID(@Path("id") String id);
 
-    //getting users in a category
-
     @POST("users")
     Call<User> postUser(@Body User user);
 
-//    @PATCH
+    @PATCH("users/{email}")
+    Call<ArrayList<String>> patchSkills(@Path("email") String userEmail, @Body ArrayList<String> skills);
 }

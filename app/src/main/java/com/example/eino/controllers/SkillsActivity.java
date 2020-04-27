@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,6 +16,7 @@ import com.example.eino.R;
 import com.example.eino.models.Categories;
 import com.example.eino.models.Skill;
 import com.example.eino.models.adapters.SkillAdapter;
+import com.example.eino.models.data_sources.UserDataSource;
 
 import java.util.ArrayList;
 
@@ -22,16 +24,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SkillsActivity extends AppCompatActivity {
 
+    private static final String TAG = "SkillsActivity";
+
     EditText searchField;
     RecyclerView skillsRecycler;
     ArrayList<Skill> allSkills;
     SkillAdapter adapter;
     CircleImageView addButton;
 
+    UserDataSource dataSource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skills);
+        dataSource = new UserDataSource();
         allSkills = Categories.getInstance().getSkills();
         addButton = findViewById(R.id.add_button);
         searchField = findViewById(R.id.search_field);
@@ -65,6 +72,10 @@ public class SkillsActivity extends AppCompatActivity {
     View.OnClickListener addListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Log.d(TAG, "onClick: PATCHING SKILLS");
+//                String email = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.em);
+                
+//            dataSource.addUserSkills();
 
         }
     };

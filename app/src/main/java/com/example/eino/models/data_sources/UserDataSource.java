@@ -47,6 +47,21 @@ public class UserDataSource {
         });
     }
 
+    public void addUserSkills(String email, ArrayList<String> skills) {
+        Call<ArrayList<String>> patchSkills = network.getDataAPI().patchSkills(email, skills);
+        patchSkills.enqueue(new Callback<ArrayList<String>>() {
+            @Override
+            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
+                Log.d(TAG, "onResponse: PATCHED " + skills.size() + "skills to user with email: " + email);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
+                Log.e(TAG, "onFailure: FAILED TO PATCH SKILLS", t);
+            }
+        });
+    }
+
     public ArrayList<User> filterBySubcategory(ArrayList<User> users, String subCat) {
         ArrayList<User> filtered = new ArrayList<>();
         for (User user : users) {
