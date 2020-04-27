@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.eino.R;
 import com.example.eino.controllers.fragments.CategoryFragment;
+import com.example.eino.models.Categories;
 import com.example.eino.models.User;
 import com.example.eino.models.data_sources.UserDataSource;
 
@@ -37,9 +38,10 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
     private boolean loggedIn = false;
 
     public static final String SHARED_PREFS = "userSharedPrefs";
-    private static final String EMAIL_SP_KEY = "savedUserEmail";
-    private static final String PASSWORD_SP_KEY = "savedUserPassword";
+    public static final String EMAIL_SP_KEY = "savedUserEmail";
+    public static final String PASSWORD_SP_KEY = "savedUserPassword";
     public static final String ID_SP_KEY = "savedUserID";
+    public static final String LOGGEDIN_SP_KEY = "savedLoggedIn";
     private String foundUserId;
 
     SharedPreferences sharedPreferences;
@@ -66,11 +68,13 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        Log.d(TAG, "onCreate: ALREADY SAVED ID: " + sharedPreferences.getString(ID_SP_KEY, "NONE"));
         getSavedUser();
         dataSource = new UserDataSource();
         dataSource.setDelegate(this);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        Categories.getInstance();
         logInButton = (Button) findViewById(R.id.sign_in_button);
         signUpButton = (Button) findViewById(R.id.sign_up_button);
         usernameField = (TextView) findViewById(R.id.username_field);
@@ -83,9 +87,10 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
     }
 
     public void getSavedUser() {
+        loggedIn = sharedPreferences.getBoolean(LOGGEDIN_SP_KEY, false);
         String email = sharedPreferences.getString(EMAIL_SP_KEY, "");
         String password = sharedPreferences.getString(PASSWORD_SP_KEY, "");
-        if (!email.isEmpty() && !password.isEmpty())
+        if (loggedIn)
             startActivity(new Intent(LogInActivity.this, MainActivity.class));
     }
 
@@ -126,6 +131,7 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
         editor.putString(EMAIL_SP_KEY, usernameField.getText().toString());
         editor.putString(PASSWORD_SP_KEY, passwordField.getText().toString());
         editor.putString(ID_SP_KEY, foundUserId);
+        editor.putBoolean(LOGGEDIN_SP_KEY, true);
         editor.commit();
     }
 
@@ -150,7 +156,7 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
     @Override
     protected void onResume() {
         super.onResume();
-        if (loggedIn)
+        if (sharedPreferences.getBoolean(LOGGEDIN_SP_KEY, false))
             finish();
     }
 

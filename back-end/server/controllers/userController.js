@@ -50,7 +50,7 @@ exports.addUser = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     displayName: req.body.displayName,
-    image: req.body.image,
+    image: req.file.path,
     skills: [],
     available: req.body.available,
     contactInfoList: req.body.contactInfoList,
@@ -59,20 +59,17 @@ exports.addUser = (req, res) => {
     .save()
     .then((user) => {
       res.status(201).json({
-        message: "Created user successfully",
-        createdUser: {
           _id: user._id,
           email: user.email,
           password: user.password,
           displayName: user.displayName,
-          image: user.image,
+          image: config.hostUrl + '/' + user.image,
           skills: user.skills,
           available: user.available,
           contactInfoList: user.contactInfoList,
           request: {
             type: "GET",
             url: config.hostUrl + "users/" + user._id,
-          },
         },
       });
     })
@@ -86,13 +83,13 @@ exports.addUser = (req, res) => {
 exports.addUserSkills = (req, res) => {
   User.findOneAndUpdate(
     { email: req.params.email },
-    { $push: { skills: req.body.skills } }
+    { skills: { skills: req.body.skills } }
   )
     .exec()
     .then((user) => {
       res.status(200).json({
-        message: "Skills were added to the users object",
-        skills: user.skills.concat(...req.body.skills) //?concat and the spread operator to print the current lost of skilss
+        message: "Skills were updated",
+        skills: req.body.skills //?concat and the spread operator to print the current lost of skilss
       });
     });
 };

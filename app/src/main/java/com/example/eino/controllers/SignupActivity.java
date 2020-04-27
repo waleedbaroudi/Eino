@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,8 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
 
     private ArrayList<String> existingEmails;
 
+    SharedPreferences sharedPreferences;
+
     EditText nameField;
     EditText surnameField;
     EditText emailField;
@@ -54,6 +57,7 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        sharedPreferences = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE);
         dataSource = new UserDataSource();
         dataSource.setDelegate(this);
         initializeViews();
@@ -66,7 +70,7 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
     @Override
     protected void onResume() {
         super.onResume();
-        if (signedUp)
+        if (sharedPreferences.getBoolean(LogInActivity.LOGGEDIN_SP_KEY, false))
             finish();
     }
 
@@ -108,11 +112,19 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
         progressBar.setVisibility(View.GONE);
         if (result) {
             Toast.makeText(this, "Registered!", Toast.LENGTH_SHORT).show();
-            signedUp = true;
+            saveUserData();
             startActivity(new Intent(SignupActivity.this, MainActivity.class));
         } else
             Toast.makeText(this, "failed to register new user", Toast.LENGTH_SHORT).show();
+    }
 
+    private void saveUserData() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(LogInActivity.EMAIL_SP_KEY, emailField.getText().toString());
+        editor.putString(LogInActivity.PASSWORD_SP_KEY, emailField.getText().toString());
+//        editor.putString(LogInActivity.ID_SP_KEY, ID);
+        editor.putBoolean(LogInActivity.LOGGEDIN_SP_KEY, true);
+        editor.commit();
     }
 
     private User makeUser() {
