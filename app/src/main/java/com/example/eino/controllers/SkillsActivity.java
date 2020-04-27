@@ -62,6 +62,12 @@ public class SkillsActivity extends AppCompatActivity {
     };
 
 
+    View.OnClickListener addListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
 
     public void filter(String text) {
         ArrayList<Skill> filtered = new ArrayList<>();

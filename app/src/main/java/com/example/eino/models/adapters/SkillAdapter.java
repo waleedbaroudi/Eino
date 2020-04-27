@@ -26,7 +26,9 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     private static final String TAG = "SkillAdapter";
 
     Context context;
-    ArrayList<Skill> skills = new ArrayList<>();
+    private ArrayList<Skill> skills = new ArrayList<>();
+
+    private ArrayList<String> selectedSkills = new ArrayList<>();
 
     public SkillAdapter(ArrayList<Skill> skills, Context context) {
         this.skills = skills;
@@ -51,6 +53,13 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 skill.setChecked(isChecked);
+                if (isChecked) {
+                    selectedSkills.add(skill.getName());
+                    Log.d(TAG, "onCheckedChanged: added: " + skill.getName());
+                } else {
+                    Log.d(TAG, "onCheckedChanged: removed: " + skill.getName());
+                    selectedSkills.remove(skill.getName());
+                }
             }
         });
 
@@ -75,6 +84,10 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     public void filteredList(ArrayList<Skill> filtered) {
         skills = filtered;
         notifyDataSetChanged();
+    }
+
+    public ArrayList<String> getSelectedSkills() {
+        return selectedSkills;
     }
 
     public static class SkillViewHolder extends RecyclerView.ViewHolder {
