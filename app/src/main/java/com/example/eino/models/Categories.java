@@ -10,6 +10,8 @@ public class Categories implements CategoryDataSource.CategoryDataSourceDelegate
     CategoryDataSource dataSource = new CategoryDataSource();
     private ArrayList<Category> categories;
 
+    public static ArrayList<Skill> allSkills;
+
     public static Categories getInstance() {
         if (categoriesInstance == null)
             categoriesInstance = new Categories();
@@ -32,6 +34,17 @@ public class Categories implements CategoryDataSource.CategoryDataSourceDelegate
         }
         return subcats;
     }
+
+    public ArrayList<Skill> getSkills() {
+        if (allSkills == null) {
+            allSkills = new ArrayList<>();
+            for (String skill : getAllsubcats()) {
+                allSkills.add(new Skill(skill, false));
+            }
+        }
+        return allSkills;
+    }
+
     public ArrayList<String> getSubcategories(Category category) {
         ArrayList<String> subcats = new ArrayList<>(category.getSubCategories());
         return subcats;

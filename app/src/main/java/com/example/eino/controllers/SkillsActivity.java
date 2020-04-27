@@ -8,31 +8,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import com.example.eino.R;
 import com.example.eino.models.Categories;
+import com.example.eino.models.Skill;
 import com.example.eino.models.adapters.SkillAdapter;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SkillsActivity extends AppCompatActivity {
 
     EditText searchField;
     RecyclerView skillsRecycler;
-    ArrayList<String> allSkills;
+    ArrayList<Skill> allSkills;
     SkillAdapter adapter;
+    CircleImageView addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skills);
-        allSkills = Categories.getInstance().getAllsubcats();
+        allSkills = Categories.getInstance().getSkills();
+        addButton = findViewById(R.id.add_button);
         searchField = findViewById(R.id.search_field);
         searchField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search_black_24dp, 0, 0, 0);
         searchField.addTextChangedListener(searchChange);
         skillsRecycler = findViewById(R.id.skills_recycler);
-        adapter = new SkillAdapter(allSkills);
+        adapter = new SkillAdapter(allSkills, this);
         skillsRecycler.setAdapter(adapter);
         skillsRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         skillsRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -55,10 +61,12 @@ public class SkillsActivity extends AppCompatActivity {
         }
     };
 
+
+
     public void filter(String text) {
-        ArrayList<String> filtered = new ArrayList<>();
-        for (String skill : allSkills) {
-            if (skill.toLowerCase().contains(text.toLowerCase())) {
+        ArrayList<Skill> filtered = new ArrayList<>();
+        for (Skill skill : allSkills) {
+            if (skill.getName().toLowerCase().contains(text.toLowerCase())) {
                 filtered.add(skill);
             }
         }

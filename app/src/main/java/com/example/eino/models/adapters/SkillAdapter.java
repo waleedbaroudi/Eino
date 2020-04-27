@@ -1,16 +1,21 @@
 package com.example.eino.models.adapters;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eino.R;
+import com.example.eino.models.Skill;
 
 import java.util.ArrayList;
 
@@ -18,10 +23,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHolder> {
 
-    ArrayList<String> skills;
+    private static final String TAG = "SkillAdapter";
 
-    public SkillAdapter(ArrayList<String> skills) {
+    Context context;
+    ArrayList<Skill> skills = new ArrayList<>();
+
+    public SkillAdapter(ArrayList<Skill> skills, Context context) {
         this.skills = skills;
+        this.context = context;
     }
 
     @NonNull
@@ -34,9 +43,19 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     @Override
     public void onBindViewHolder(@NonNull SkillViewHolder holder, int position) {
-        int imageResId = holder.getImageResource(getImageName(skills.get(position)));
+        final Skill skill = skills.get(position);
+        int imageResId = holder.getImageResource(getImageName(skill.getName()));
+        holder.skillCheck.setOnCheckedChangeListener(null);
+        holder.skillCheck.setChecked(skill.isChecked());
+        holder.skillCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                skill.setChecked(isChecked);
+            }
+        });
+
         holder.skillImage.setImageResource(imageResId);
-        holder.skillName.setText(skills.get(position));
+        holder.skillName.setText(skill.getName());
     }
 
     @Override
@@ -53,12 +72,12 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         return imageName.toLowerCase() + "_icon";
     }
 
-    public void filteredList(ArrayList<String> filtered){
+    public void filteredList(ArrayList<Skill> filtered) {
         skills = filtered;
         notifyDataSetChanged();
     }
 
-    public class SkillViewHolder extends RecyclerView.ViewHolder {
+    public static class SkillViewHolder extends RecyclerView.ViewHolder {
         CircleImageView skillImage;
         TextView skillName;
         CheckBox skillCheck;
@@ -76,5 +95,7 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         public int getImageResource(String imageName) {
             return view.getResources().getIdentifier(imageName, "drawable", view.getContext().getPackageName());
         }
+
+
     }
 }
