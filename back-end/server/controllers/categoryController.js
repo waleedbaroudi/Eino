@@ -86,7 +86,6 @@ exports.deleteCategory = (req, res) => {
   Category.remove({ type: req.params.type })
     .exec()
     .then((category) => {
-	if(category){
       res.status(200).json({
         message: "Category Deleted",
         request: {
@@ -94,11 +93,6 @@ exports.deleteCategory = (req, res) => {
           url: config.hostUrl + "/categories"
         },
       });
-	else{
-		res.status(404).json({
-			message: "No such category. Please use the type of the category as a paramter
-		});
-	}
     })
     .catch((err) => {
       res.status(500).json({

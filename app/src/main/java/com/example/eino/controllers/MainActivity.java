@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
         setContentView(R.layout.activity_main);
         dataSource = new UserDataSource();
         dataSource.setDelegate(this);
+
         String userID = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.ID_SP_KEY, "");
         dataSource.getUserByID(userID);
 //        Log.d(TAG, "onCreate: RECEIVED USER ID: " + userID);
