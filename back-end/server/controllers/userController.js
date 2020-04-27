@@ -59,8 +59,6 @@ exports.addUser = (req, res) => {
     .save()
     .then((user) => {
       res.status(201).json({
-        message: "Created user successfully",
-        createdUser: {
           _id: user._id,
           email: user.email,
           password: user.password,
@@ -72,7 +70,6 @@ exports.addUser = (req, res) => {
           request: {
             type: "GET",
             url: config.hostUrl + "users/" + user._id,
-          },
         },
       });
     })
