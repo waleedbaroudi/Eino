@@ -83,7 +83,7 @@ exports.addUser = (req, res) => {
 exports.addUserSkills = (req, res) => {
   User.findOneAndUpdate(
     { email: req.params.email },
-    { skills: { skills: req.body.skills } }
+     { skills: req.body.skills } 
   )
     .exec()
     .then((user) => {

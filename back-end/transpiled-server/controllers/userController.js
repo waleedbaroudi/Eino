@@ -82,9 +82,7 @@ exports.addUserSkills = function (req, res) {
   _User["default"].findOneAndUpdate({
     email: req.params.email
   }, {
-    skills: {
-      skills: req.body.skills
-    }
+    skills: req.body.skills
   }).exec().then(function (user) {
     res.status(200).json({
       message: "Skills were updated",
