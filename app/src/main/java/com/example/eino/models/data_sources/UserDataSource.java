@@ -38,6 +38,7 @@ public class UserDataSource {
         usersByCategory.enqueue(new Callback<ArrayList<User>>() {
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                Log.d(TAG, "onResponse: " + response.body().size() + " users in category: " + category);
                 delegate.fetchedUsersByCategory(response.body());
             }
 
@@ -69,6 +70,7 @@ public class UserDataSource {
             if (user.getSkills().contains(subCat))
                 filtered.add(user);
         }
+        Log.d(TAG, "filterBySubcategory: filtered" + filtered.size() + "users out of " + users.size());
         return filtered;
     }
 

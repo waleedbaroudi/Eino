@@ -38,4 +38,7 @@ public interface DataAPI {
 
     @PATCH("users/{email}")
     Call<SkillPatch> patchSkills(@Path("email") String userEmail, @Body SkillPatch skills);
+
+    @PATCH("categories/{type}") //TODO: MIGHT REMOVE
+    Call<String> addUserToCat(@Path("type") String category, @Body String ID);
 }
