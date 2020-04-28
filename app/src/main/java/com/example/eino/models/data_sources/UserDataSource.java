@@ -2,6 +2,7 @@ package com.example.eino.models.data_sources;
 
 import android.util.Log;
 
+import com.example.eino.models.SkillPatch;
 import com.example.eino.models.User;
 import com.example.eino.models.network.Network;
 
@@ -47,16 +48,16 @@ public class UserDataSource {
         });
     }
 
-    public void addUserSkills(String email, ArrayList<String> skills) {
-        Call<ArrayList<String>> patchSkills = network.getDataAPI().patchSkills(email, skills);
-        patchSkills.enqueue(new Callback<ArrayList<String>>() {
+    public void addUserSkills(String email, SkillPatch skills) {
+        Call<SkillPatch> patchSkills = network.getDataAPI().patchSkills(email, skills);
+        patchSkills.enqueue(new Callback<SkillPatch>() {
             @Override
-            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
-                Log.d(TAG, "onResponse: PATCHED " + skills.size() + "skills to user with email: " + email);
+            public void onResponse(Call<SkillPatch> call, Response<SkillPatch> response) {
+                Log.d(TAG, "onResponse: PATCHED " + skills.getPatchSize() + "skills to user with email: " + email);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
+            public void onFailure(Call<SkillPatch> call, Throwable t) {
                 Log.e(TAG, "onFailure: FAILED TO PATCH SKILLS", t);
             }
         });
