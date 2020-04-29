@@ -34,6 +34,51 @@ exports.getUsersInCategory = (req, res) => {
       });
     });
 };
+//Return the IDS of the users inside this category
+exports.getUserIdsInCategory = (req, res) => {
+  Category.findOne({ type: req.params.type })
+    .exec()
+    .then((category) => {
+      if (category) {
+        //? for testing eval(locus);
+        res.status(200).json(category.users);
+      } else
+        res.status(404).json({
+          message: "No such Category with this type.",
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
+};
+
+//Remove an ID from the users list inside the category
+//exports.removeUserIdFromCategory = (req, res) => {
+//  Category.findOneAndUpdate(
+//    { type: req.params.type },
+//    { users: req.body.users }
+//  )
+//    .exec()
+//    .then((category) => {
+//      res.status(200).json({
+//        message: `Updated users list in ${category.type} category`
+//      });
+//    });
+//};
+exports.removeUserIdFromCategory = (req, res) => {
+  Category.findOneAndUpdate(
+    { type: req.params.type },
+    { $pull: { users: req.params.userId } }
+  )
+    .exec()
+    .then((category) => {
+      res.status(200).json({
+        message: `Deleted id from the list of users in ${category.type} category`
+      });
+    });
+};
 
 exports.addCategory = (req, res) => {
   const category = new Category({
@@ -71,7 +116,7 @@ exports.addCategory = (req, res) => {
 exports.updateCategory = (req, res) => {
   Category.findOneAndUpdate(
     { type: req.params.type },
-    { $push: { users: req.body._id } }
+    { $push: { users: req.params.userId } }
   )
     .exec()
     .then((category) => {
