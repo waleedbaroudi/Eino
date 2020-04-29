@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.eino.R;
 import com.example.eino.models.User;
@@ -19,6 +20,8 @@ public class UsersActivity extends AppCompatActivity implements UserDataSource.U
     UserDataSource dataSource;
     private String selectedSubCat;
     String selectedCategory;
+
+    private static final String TAG = "UsersActivity";
 
 
     @Override
@@ -36,6 +39,7 @@ public class UsersActivity extends AppCompatActivity implements UserDataSource.U
     @Override
     public void fetchedUsersByCategory(ArrayList<User> users) {
         ArrayList<User> usersBySubcat = dataSource.filterBySubcategory(users, selectedSubCat);
+        Log.d(TAG, "fetchedUsersByCategory: " + users.size() + "users for category: " + selectedSubCat);
         usersRecycler.setAdapter(new UsersAdapter(usersBySubcat, selectedSubCat));
         usersRecycler.setLayoutManager(new LinearLayoutManager(this));
     }

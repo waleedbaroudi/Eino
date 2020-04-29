@@ -2,6 +2,7 @@ package com.example.eino.models.network;
 
 
 import com.example.eino.models.Category;
+import com.example.eino.models.SkillPatch;
 import com.example.eino.models.User;
 
 import java.util.ArrayList;
@@ -36,5 +37,8 @@ public interface DataAPI {
     Call<User> postUser(@Body User user);
 
     @PATCH("users/{email}")
-    Call<ArrayList<String>> patchSkills(@Path("email") String userEmail, @Body ArrayList<String> skills);
+    Call<SkillPatch> patchSkills(@Path("email") String userEmail, @Body SkillPatch skills);
+
+    @PATCH("categories/{type}") //TODO: MIGHT REMOVE
+    Call<String> addUserToCat(@Path("type") String category, @Body String ID);
 }

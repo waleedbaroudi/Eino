@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.example.eino.R;
 import com.example.eino.models.Categories;
 import com.example.eino.models.Skill;
+import com.example.eino.models.SkillPatch;
 import com.example.eino.models.adapters.SkillAdapter;
 import com.example.eino.models.data_sources.UserDataSource;
 
@@ -76,7 +77,8 @@ public class SkillsActivity extends AppCompatActivity {
             String email = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.EMAIL_SP_KEY, "");
             ArrayList<String> skills = ((SkillAdapter) skillsRecycler.getAdapter()).getSelectedSkills();
             Log.d(TAG, "onClick: PATCHING " + skills.size() + " SKILLS TO USER: " + email);
-            dataSource.addUserSkills(email, skills);
+            dataSource.addUserSkills(email, new SkillPatch(skills));
+            finish();
         }
     };
 
