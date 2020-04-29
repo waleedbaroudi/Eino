@@ -8,8 +8,6 @@ var _Category = _interopRequireDefault(require("../models/Category"));
 
 var _config = _interopRequireDefault(require("../../config/config"));
 
-var _locus = _interopRequireDefault(require("locus"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }

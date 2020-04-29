@@ -7,7 +7,7 @@ import userRoute from "./routes/userRoute";
 import categoryRoute from './routes/categoryRoute';
 
 //Server Setup
-const port = 3000 || process.env.PORT;
+const port = 8080 || process.env.PORT;
 const app = express();
 const server = http.createServer(app);
 
@@ -24,6 +24,8 @@ mongoose.connect(config.dbConnectionString, {
     console.log("Connected to mongo server successfully.");
   });
 
+//Cloud setup
+app.set('trust proxy', true);
 
 //Express middlewear
 //Funnel all requests through morgan to be logged to the console.
@@ -83,4 +85,4 @@ app.use((error, req, res, next) => {
 
 console.log(`Listening on port: ${port}`);
 //Start listening for requests on the specified PORT
-server.listen(port);
+server.listen(port, '0.0.0.0');

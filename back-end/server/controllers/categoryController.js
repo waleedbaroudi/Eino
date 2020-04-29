@@ -1,7 +1,6 @@
 import mongoose, { get } from "mongoose";
 import Category from "../models/Category";
 import config from "../../config/config";
-import locus from "locus";
 
 exports.getCategories = (req, res) => {
   Category.find()

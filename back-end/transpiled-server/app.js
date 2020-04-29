@@ -17,7 +17,7 @@ var _categoryRoute = _interopRequireDefault(require("./routes/categoryRoute"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //Server Setup
-var port = 3000 || process.env.PORT;
+var port = 8080 || process.env.PORT;
 var app = (0, _express["default"])();
 
 var server = _http["default"].createServer(app); //Establish a connection with the mongodb server.
@@ -35,9 +35,11 @@ _mongoose["default"].set("useFindAndModify", false); //When the connection is su
 
 _mongoose["default"].connection.on("open", function (open) {
   console.log("Connected to mongo server successfully.");
-}); //Express middlewear
-//Funnel all requests through morgan to be logged to the console.
+}); //Cloud setup
 
+
+app.set('trust proxy', true); //Express middlewear
+//Funnel all requests through morgan to be logged to the console.
 
 app.use((0, _morgan["default"])("dev")); //Parse the data from the requests we get so we can extract them.
 
@@ -87,4 +89,4 @@ app.use(function (error, req, res, next) {
 });
 console.log("Listening on port: ".concat(port)); //Start listening for requests on the specified PORT
 
-server.listen(port);
+server.listen(port, '0.0.0.0');

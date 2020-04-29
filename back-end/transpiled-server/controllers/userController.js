@@ -6,8 +6,6 @@ var _User = _interopRequireDefault(require("../models/User"));
 
 var _config = _interopRequireDefault(require("../../config/config"));
 
-var _locus = _interopRequireDefault(require("locus"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 exports.getUsers = function (req, res) {

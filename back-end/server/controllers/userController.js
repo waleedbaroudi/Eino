@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/User";
 import config from "../../config/config";
-import locus from "locus";
 
 exports.getUsers = (req, res) => {
   User.find()
