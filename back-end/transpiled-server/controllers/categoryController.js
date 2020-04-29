@@ -43,6 +43,23 @@ exports.getUsersInCategory = function (req, res) {
   });
 };
 
+exports.getUserIdsInCategory = function (req, res) {
+  _Category["default"].findOne({
+    type: req.params.type
+  }).exec().then(function (category) {
+    if (category) {
+      //? for testing eval(locus);
+      res.status(200).json(category.users);
+    } else res.status(404).json({
+      message: "No such Category with this type."
+    });
+  })["catch"](function (err) {
+    res.status(500).json({
+      error: err
+    });
+  });
+};
+
 exports.addCategory = function (req, res) {
   var category = new _Category["default"]({
     _id: new _mongoose["default"].Types.ObjectId(),

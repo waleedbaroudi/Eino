@@ -35,6 +35,24 @@ exports.getUsersInCategory = (req, res) => {
     });
 };
 
+exports.getUserIdsInCategory = (req, res) => {
+  Category.findOne({ type: req.params.type })
+    .exec()
+    .then((category) => {
+      if (category) {
+        //? for testing eval(locus);
+        res.status(200).json(category.users);
+      } else
+        res.status(404).json({
+          message: "No such Category with this type.",
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: err,
+      });
+    });
+};
 exports.addCategory = (req, res) => {
   const category = new Category({
     _id: new mongoose.Types.ObjectId(),

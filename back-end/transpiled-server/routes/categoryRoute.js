@@ -14,9 +14,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router(); //Get a list of all users
 
 
-router.get("/", _categoryController["default"].getCategories); //Get a the users in a category by the type of the category
+router.get("/", _categoryController["default"].getCategories); //Get a list of user objects in a category by the type of the category
 
-router.get("/:type", _categoryController["default"].getUsersInCategory); //Add a category and get that added category back as a response
+router.get("/:type", _categoryController["default"].getUsersInCategory); //Get a list of user Ids in a category by the type of the category
+
+router.get("/id/:type", _categoryController["default"].getUserIdsInCategory); //Add a category and get that added category back as a response
 
 router.post("/", _categoryController["default"].addCategory); //Add a user ID to a categories
 
