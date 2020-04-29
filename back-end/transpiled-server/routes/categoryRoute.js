@@ -20,9 +20,9 @@ router.get("/:type", _categoryController["default"].getUsersInCategory); //Get a
 
 router.get("/id/:type", _categoryController["default"].getUserIdsInCategory); //Add a category and get that added category back as a response
 
-router.post("/", _categoryController["default"].addCategory); //Add a user ID to a category
+router.post("/", _categoryController["default"].addCategory); //!Add a user ID to a category REQUIRES NO BODY
 
-router.patch("/:type/:userId", _categoryController["default"].updateCategory); //Remove a user ID from a category.
+router.patch("/:type/:userId", _categoryController["default"].updateCategory); //!Remove a user ID from a category. REQUIRES NO BODY
 
 router.patch("/id/:type/:userId", _categoryController["default"].removeUserIdFromCategory); //Remove a category depending on type
 
