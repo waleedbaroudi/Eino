@@ -55,30 +55,30 @@ exports.getUserIdsInCategory = (req, res) => {
 };
 
 //Remove an ID from the users list inside the category
-exports.removeUserIdFromCategory = (req, res) => {
-  Category.findOneAndUpdate(
-    { type: req.params.type },
-    { users: req.body.users }
-  )
-    .exec()
-    .then((category) => {
-      res.status(200).json({
-        message: `Updated users list in ${category.type} category`
-      });
-    });
-};
 //exports.removeUserIdFromCategory = (req, res) => {
 //  Category.findOneAndUpdate(
 //    { type: req.params.type },
-//    { $pull: { users: req.params.userId } }
+//    { users: req.body.users }
 //  )
 //    .exec()
 //    .then((category) => {
 //      res.status(200).json({
-//        message: `Deleted id from the list of users in ${category.type} category`
+//        message: `Updated users list in ${category.type} category`
 //      });
 //    });
 //};
+exports.removeUserIdFromCategory = (req, res) => {
+  Category.findOneAndUpdate(
+    { type: req.params.type },
+    { $pull: { users: req.params.userId } }
+  )
+    .exec()
+    .then((category) => {
+      res.status(200).json({
+        message: `Deleted id from the list of users in ${category.type} category`
+      });
+    });
+};
 
 exports.addCategory = (req, res) => {
   const category = new Category({
@@ -116,7 +116,7 @@ exports.addCategory = (req, res) => {
 exports.updateCategory = (req, res) => {
   Category.findOneAndUpdate(
     { type: req.params.type },
-    { $push: { users: req.body._id } }
+    { $push: { users: req.params.userId } }
   )
     .exec()
     .then((category) => {

@@ -22,7 +22,7 @@ router.get("/id/:type", _categoryController["default"].getUserIdsInCategory); //
 
 router.post("/", _categoryController["default"].addCategory); //Add a user ID to a category
 
-router.patch("/:type", _categoryController["default"].updateCategory); //Remove a user ID from a category.
+router.patch("/:type/:userId", _categoryController["default"].updateCategory); //Remove a user ID from a category.
 
 router.patch("/id/:type/:userId", _categoryController["default"].removeUserIdFromCategory); //Remove a category depending on type
 
