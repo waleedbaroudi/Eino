@@ -1,13 +1,19 @@
 package com.example.eino.models.data_sources;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.eino.controllers.LogInActivity;
 import com.example.eino.models.SkillPatch;
 import com.example.eino.models.User;
 import com.example.eino.models.network.Network;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,8 +21,18 @@ import retrofit2.Response;
 
 public class UserDataSource {
     private static final String TAG = "UserDataSource";
+    public static final String SKILLSET_SP_KEY = "userSkills";
+
     UserDataSourceDelegate delegate;
     Network network = Network.getInstance();
+    Context context;
+    static SharedPreferences sharedPreferences;
+
+    public UserDataSource(Context context) {
+        this.context = context;
+        delegate = (UserDataSourceDelegate) context;
+        sharedPreferences = context.getSharedPreferences(LogInActivity.SHARED_PREFS, Context.MODE_PRIVATE);
+    }
 
     public void fetchUsers() {
         Call<ArrayList<User>> call = network.getDataAPI().getUsers();
@@ -67,21 +83,24 @@ public class UserDataSource {
     public ArrayList<User> filterBySubcategory(ArrayList<User> users, String subCat) {
         ArrayList<User> filtered = new ArrayList<>();
         for (User user : users) {
+            Log.d(TAG, "filterBySubcategory: " + user.getID());
             if (user.getSkills().contains(subCat))
                 filtered.add(user);
         }
-        Log.d(TAG, "filterBySubcategory: filtered" + filtered.size() + "users out of " + users.size());
+        Log.d(TAG, "filterBySubcategory: filtered " + filtered.size() + " users out of " + users.size());
         return filtered;
     }
+
 
     public void addUser(User user) {
         Call<User> postUser = network.getDataAPI().postUser(user);
         postUser.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 201)
+                if (response.code() == 201) {
                     delegate.userAdded(true);
-                else
+                    writeUserSkillSet(response.body().getSkills());
+                } else
                     delegate.userAdded(false);
                 Log.d(TAG, "onPostResponse: posting terminated with code: " + response.code());
             }
@@ -93,6 +112,13 @@ public class UserDataSource {
             }
         });
 
+    }
+
+    public static void writeUserSkillSet(LinkedList<String> skills) {
+        Set<String> skillSet = new HashSet<>(skills);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(SKILLSET_SP_KEY, skillSet);
+        editor.commit();
     }
 
     public void getUserByID(String id) {

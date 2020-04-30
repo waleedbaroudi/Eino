@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controllers.SignupActivity">
+    tools:context=".controllers.SignupActivity"
+    android:id="@+id/signup_constraint">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -189,7 +190,8 @@
                 android:layout_height="147dp"
                 android:layout_marginTop="21dp"
                 android:layout_marginBottom="32dp"
-                android:src="@drawable/logo_png"
+                android:elevation="2dp"
+                android:src="@drawable/demo_user_icon"
                 app:layout_constraintBottom_toTopOf="@+id/nameEditText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

@@ -6,11 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.eino.R;
 import com.example.eino.controllers.fragments.CategoryFragment;
@@ -29,17 +30,17 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
     private boolean onMyProfile = false;
 
     User currentUser;
+    private boolean userReady;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataSource = new UserDataSource();
+        dataSource = new UserDataSource(this);
         dataSource.setDelegate(this);
 
         String userID = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.ID_SP_KEY, "");
         dataSource.getUserByID(userID);
-//        Log.d(TAG, "onCreate: RECEIVED USER ID: " + userID);
         bottomNav = findViewById(R.id.bottom_bar);
         fragCont = findViewById(R.id.frag_container);
         bottomNav.setOnNavigationItemSelectedListener(listener);
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -62,7 +64,10 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
                 case R.id.profile_item:
                     if (onMyProfile)
                         return true;
-//                    Log.d(TAG, "onCreate: PASSING USER ID: " + userID);
+                    if (!userReady) {
+                        Toast.makeText(MainActivity.this, "Preparing you profile, try again in a few moments", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
                     selectedFragment = new MyProfileFragment(currentUser);
                     onMyProfile = true;
                     break;
@@ -78,8 +83,17 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
     };
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent exit = new Intent(Intent.ACTION_MAIN);
+        exit.addCategory(Intent.CATEGORY_HOME);
+        exit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(exit);
+    }
+
+    @Override
     public void userFetched(User user) {
         currentUser = user;
-        //TODO: CHANGE BOOLEAN TO ALLOW GOING TO MYPROFILE FRAGMENT
+        userReady = true;
     }
 }

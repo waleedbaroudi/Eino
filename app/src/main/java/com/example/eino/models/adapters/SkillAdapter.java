@@ -2,14 +2,12 @@ package com.example.eino.models.adapters;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,13 +24,14 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     private static final String TAG = "SkillAdapter";
 
     Context context;
-    private ArrayList<Skill> skills = new ArrayList<>();
+    private ArrayList<Skill> skills;
 
     private ArrayList<String> selectedSkills = new ArrayList<>();
 
-    public SkillAdapter(ArrayList<Skill> skills, Context context) {
+    public SkillAdapter(ArrayList<Skill> skills, ArrayList<String> selectedSkills, Context context) {
         this.skills = skills;
         this.context = context;
+        this.selectedSkills = selectedSkills;
     }
 
     @NonNull
@@ -72,13 +71,28 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         return skills.size();
     }
 
-    public String getImageName(String name) {
-        String imageName = name;
-        if (name.toLowerCase().equals("c++"))
-            imageName = "cpp";
-        if (name.toLowerCase().equals("c#"))
-            imageName = "csharp";
-        return imageName.toLowerCase() + "_icon";
+    private String getImageName(String str) {
+
+        str = str.toLowerCase();
+        String image = "";
+
+        char[] imageChars = str.toCharArray();
+
+        for(char c : imageChars) {
+            if(c == ' ')
+                continue;
+            if(c == '+') {
+                image += 'p';
+                continue;
+            }
+            if(c == '#') {
+                image += "sharp";
+                continue;
+            }
+            image += c;
+        }
+        image += "_icon";
+        return image;
     }
 
     public void filteredList(ArrayList<Skill> filtered) {

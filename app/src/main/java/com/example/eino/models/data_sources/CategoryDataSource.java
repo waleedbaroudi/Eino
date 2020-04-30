@@ -34,6 +34,36 @@ public class CategoryDataSource {
         });
     }
 
+    public void addUserToCategory(String category, String ID) {
+        Call<Object> addUser = network.getDataAPI().addUserToCategory(category, ID);
+        addUser.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d(TAG, "onResponse: ADDED SUCCESSFULLY? " + response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.e(TAG, "onFailure: ERROR WHILE ADDING USER ID", t);
+            }
+        });
+    }
+
+    public void removeUserFromCategory(String category, String ID) {
+        Call<Object> removeUser = network.getDataAPI().removeUserFromCategory(category, ID);
+        removeUser.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d(TAG, "onResponse: REMOVED SUCCESSFULLY? " + response.isSuccessful());
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.e(TAG, "onFailure: ERROR WHILE REMOVING USER ID", t);
+            }
+        });
+    }
+
     public void setDelegate(CategoryDataSourceDelegate delegate) {
         this.delegate = delegate;
     }
@@ -44,7 +74,8 @@ public class CategoryDataSource {
         }
 
 
-
-        void fetchFailure();
+        default void fetchFailure() {
+            Log.e(TAG, "categoriesFetched: ", new IllegalStateException("Delegate not set"));
+        }
     }
 }

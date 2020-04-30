@@ -16,6 +16,8 @@ import com.example.eino.models.Category;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.ViewHolder> {
     ArrayList<Category> cats;
 
@@ -34,6 +36,9 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        int imageResId = holder.getImageResource(getImageName(cats.get(position).getType()));
+
+        holder.image.setImageResource(imageResId);
         holder.catName.setText(cats.get(position).getType());
         holder.itemCard.setOnClickListener(v -> {
             Intent toSubCats = new Intent(v.getContext(), SubCategoryActivity.class);
@@ -47,17 +52,43 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     public int getItemCount() {
         return cats.size();
     }
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView catName;
         CardView itemCard;
-
+        CircleImageView image;
+        View view;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.item_name);
             itemCard = itemView.findViewById(R.id.item_card);
+            image = itemView.findViewById(R.id.item_image);
+            view = itemView;
         }
+        public int getImageResource(String imageName) {
+            return view.getResources().getIdentifier(imageName, "drawable", view.getContext().getPackageName());
+        }
+    }
+    private String getImageName(String str) {
+
+        str = str.toLowerCase();
+        String image = "";
+
+        char[] imageChars = str.toCharArray();
+
+        for(char c : imageChars) {
+            if(c == ' ')
+                continue;
+            if(c == '+') {
+                image += 'p';
+                continue;
+            }
+            if(c == '#') {
+                image += "sharp";
+                continue;
+            }
+            image += c;
+        }
+        image += "_icon";
+        return image;
     }
 }

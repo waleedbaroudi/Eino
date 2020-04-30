@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#8550CA</color>
     <color name="colorPrimaryDark">#673AB7</color>
     <color name="colorAccent">#ff3366</color>
 
@@ -11,7 +11,7 @@
 
     <color name="skillTagBackGround">#E91E63</color>
     <color name="textWithDarkBackground">@android:color/white</color>
-    <color name="subText">#666666</color>
+    <color name="subText">#2C2C2C</color>
 
-    <color name="mainText">#454545</color>
+    <color name="mainText">#666666</color>
 </resources>

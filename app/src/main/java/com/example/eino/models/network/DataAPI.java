@@ -39,6 +39,14 @@ public interface DataAPI {
     @PATCH("users/{email}")
     Call<SkillPatch> patchSkills(@Path("email") String userEmail, @Body SkillPatch skills);
 
+    //patches a user ID to the corresponding category after adding a skill - REQUIRES NO BODY
+    @PATCH("categories/{type}/{userID}")
+    Call<Object> addUserToCategory(@Path("type") String category, @Path("userID") String ID);
+
+    //deletes a user ID from the corresponding category after removing a skill - REQUIRES NO BODY
+    @PATCH("categories/id/{type}/{userID}")
+    Call<Object> removeUserFromCategory(@Path("type") String category, @Path("userID") String ID);
+
     @PATCH("categories/{type}") //TODO: MIGHT REMOVE
     Call<String> addUserToCat(@Path("type") String category, @Body String ID);
 }

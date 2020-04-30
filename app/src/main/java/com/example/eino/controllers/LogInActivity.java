@@ -70,7 +70,7 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         Log.d(TAG, "onCreate: ALREADY SAVED ID: " + sharedPreferences.getString(ID_SP_KEY, "NONE"));
         getSavedUser();
-        dataSource = new UserDataSource();
+        dataSource = new UserDataSource(this);
         dataSource.setDelegate(this);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -156,6 +156,7 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
     @Override
     protected void onResume() {
         super.onResume();
+        dataSource = new UserDataSource(this);
         if (sharedPreferences.getBoolean(LOGGEDIN_SP_KEY, false))
             finish();
     }
