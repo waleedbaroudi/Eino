@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,7 +33,10 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
     CardView infoCard;
     CircleImageView imageView;
     ImageView topImage;
+
+    GridLayout contactLayout;
     FlowLayout skillsLayout;
+
 
     ProgressBar userLoadingIndicator;
 
@@ -72,6 +77,12 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
             createSkill(skill);
         }
 
+        contactLayout = findViewById(R.id.contact_layout);
+
+        for (User.ContactInfo info : currentUser.getContactInfo()) {
+            createContactInfo(info);
+        }
+
         infoCard = findViewById(R.id.cardView);
         infoCard.setOnClickListener(v -> {
             spreadSet.connect(R.id.name_label, ConstraintSet.TOP, R.id.user_layout, ConstraintSet.TOP, 150);
@@ -99,5 +110,36 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
         skill.setTextColor(Color.WHITE);
         skill.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19);
         skillsLayout.addView(skill);
+    }
+
+    public void createContactInfo(User.ContactInfo contactInfo) {
+        //ADDS IMAGE
+        ImageView infoImage = new ImageView(UserProfileActivity.this);
+        infoImage.setLayoutParams(new GridLayoutManager.LayoutParams(GridLayout.LayoutParams.WRAP_CONTENT, GridLayout.LayoutParams.WRAP_CONTENT));
+        infoImage.setImageResource(R.drawable.ic_email_black_24dp);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(
+                    GridLayout.UNDEFINED, GridLayout.FILL, 4f),
+                    GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 4f));
+            param.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            infoImage.setLayoutParams(param);
+        }
+        contactLayout.addView(infoImage);
+        //ADDS THE INFO
+        TextView contact = new TextView(UserProfileActivity.this);
+        contact.setLayoutParams(new GridLayoutManager.LayoutParams(GridLayout.LayoutParams.WRAP_CONTENT, GridLayout.LayoutParams.WRAP_CONTENT));
+        contact.setText(contactInfo.getInfo());
+        contact.setTextColor(getResources().getColor(R.color.mainText));
+        contact.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(
+                    GridLayout.UNDEFINED, GridLayout.FILL, 4f),
+                    GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 4f));
+            param.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            contact.setLayoutParams(param);
+        }
+        contactLayout.addView(contact);
     }
 }
