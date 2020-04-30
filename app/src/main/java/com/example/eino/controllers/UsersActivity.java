@@ -31,7 +31,7 @@ public class UsersActivity extends AppCompatActivity implements UserDataSource.U
         selectedSubCat = getIntent().getExtras().getString("selectedSubCat");
         selectedCategory = getIntent().getExtras().getString("selectedCategory");
         usersRecycler = findViewById(R.id.usersRecycler);
-        dataSource = new UserDataSource();
+        dataSource = new UserDataSource(this);
         dataSource.setDelegate(this);
         dataSource.fetchUsers(selectedCategory);
     }

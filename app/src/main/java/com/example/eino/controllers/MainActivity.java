@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataSource = new UserDataSource();
+        dataSource = new UserDataSource(this);
         dataSource.setDelegate(this);
 
         String userID = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.ID_SP_KEY, "");

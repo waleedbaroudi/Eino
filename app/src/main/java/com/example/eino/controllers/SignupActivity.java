@@ -63,7 +63,7 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         sharedPreferences = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE);
-        dataSource = new UserDataSource();
+        dataSource = new UserDataSource(this);
         dataSource.setDelegate(this);
         initializeViews();
         progressBar.setVisibility(View.GONE);
