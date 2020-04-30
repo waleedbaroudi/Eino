@@ -122,6 +122,13 @@
                 android:textColorLink="#FFFFFF"
                 android:textSize="27sp" />
 
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                app:srcCompat="@drawable/add_skill_icon" />
+
             <com.nex3z.flowlayout.FlowLayout
                 android:id="@+id/skillsLayout"
                 android:layout_width="match_parent"
@@ -263,6 +270,7 @@
                     android:textSize="18sp" />
 
             </GridLayout>
+
         </LinearLayout>
     </ScrollView>
 
