@@ -72,13 +72,28 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
         return skills.size();
     }
 
-    public String getImageName(String name) {
-        String imageName = name;
-        if (name.toLowerCase().equals("c++"))
-            imageName = "cpp";
-        if (name.toLowerCase().equals("c#"))
-            imageName = "csharp";
-        return imageName.toLowerCase() + "_icon";
+    private String getImageName(String str) {
+
+        str = str.toLowerCase();
+        String image = "";
+
+        char[] imageChars = str.toCharArray();
+
+        for(char c : imageChars) {
+            if(c == ' ')
+                continue;
+            if(c == '+') {
+                image += 'p';
+                continue;
+            }
+            if(c == '#') {
+                image += "sharp";
+                continue;
+            }
+            image += c;
+        }
+        image += "_icon";
+        return image;
     }
 
     public void filteredList(ArrayList<Skill> filtered) {

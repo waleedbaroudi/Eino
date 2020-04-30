@@ -15,6 +15,8 @@ import com.example.eino.controllers.UsersActivity;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ViewHolder> {
     private ArrayList<String> subcats;
     private String selectedCategory;
@@ -35,6 +37,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final String subcategory = subcats.get(position);
+        int imageResId = holder.getImageResource(getImageName(subcats.get(position)));
+
+        holder.image.setImageResource(imageResId);
         holder.catName.setText(subcategory);
         holder.item.setOnClickListener(v -> {
             Intent toUsersActivity = new Intent(v.getContext(), UsersActivity.class);
@@ -52,11 +57,40 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView catName;
         ConstraintLayout item;
-
+        CircleImageView image;
+        View view;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.item_name);
             item = itemView.findViewById(R.id.item_layout);
+            image = itemView.findViewById(R.id.item_image);
+            view = itemView;
         }
+        public int getImageResource(String imageName) {
+            return view.getResources().getIdentifier(imageName, "drawable", view.getContext().getPackageName());
+        }
+    }
+    private String getImageName(String str) {
+
+        str = str.toLowerCase();
+        String image = "";
+
+        char[] imageChars = str.toCharArray();
+
+        for(char c : imageChars) {
+            if(c == ' ')
+                continue;
+            if(c == '+') {
+                image += 'p';
+                continue;
+            }
+            if(c == '#') {
+                image += "sharp";
+                continue;
+            }
+            image += c;
+        }
+        image += "_icon";
+        return image;
     }
 }
