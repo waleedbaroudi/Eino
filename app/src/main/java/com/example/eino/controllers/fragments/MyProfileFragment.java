@@ -11,18 +11,23 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.eino.R;
 import com.example.eino.controllers.LogInActivity;
 import com.example.eino.controllers.MainActivity;
 import com.example.eino.controllers.SkillsActivity;
+import com.example.eino.controllers.UserProfileActivity;
 import com.example.eino.models.User;
 import com.example.eino.models.data_sources.UserDataSource;
 import com.nex3z.flowlayout.FlowLayout;
@@ -52,6 +57,7 @@ public class MyProfileFragment extends Fragment {
     ImageButton logoutButton;
 
     SharedPreferences sharedPreferences;
+    private GridLayout contactLayout;
 
     public MyProfileFragment(User currentUser) { //TODO: CHANGE THIS TO TAKE A USER INSTEAD OF AN ID.
         this.currentUser = currentUser;
@@ -64,6 +70,10 @@ public class MyProfileFragment extends Fragment {
         skillsLayout = view.findViewById(R.id.skillsLayout);
         skills = new HashSet<>(currentUser.getSkills());
         initializeSkillLayout();
+        contactLayout = view.findViewById(R.id.contact_layout);
+        for(User.ContactInfo info : currentUser.getContactInfo()){
+            createContactInfo(info);
+        }
         name = view.findViewById(R.id.name_label);
         username = view.findViewById(R.id.username_label);
         logoutButton = view.findViewById(R.id.sign_out_button);
@@ -137,5 +147,36 @@ public class MyProfileFragment extends Fragment {
         skill.setTextColor(Color.WHITE);
         skill.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19);
         skillsLayout.addView(skill);
+    }
+
+    public void createContactInfo(User.ContactInfo contactInfo) {
+        //ADDS IMAGE
+        ImageView infoImage = new ImageView(getContext());
+        infoImage.setLayoutParams(new GridLayoutManager.LayoutParams(GridLayout.LayoutParams.WRAP_CONTENT, GridLayout.LayoutParams.WRAP_CONTENT));
+        infoImage.setImageResource(R.drawable.ic_email_black_24dp);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(
+                    GridLayout.UNDEFINED, GridLayout.FILL, 4f),
+                    GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 4f));
+            param.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            infoImage.setLayoutParams(param);
+        }
+        contactLayout.addView(infoImage);
+        //ADDS THE INFO
+        TextView contact = new TextView(getContext());
+        contact.setLayoutParams(new GridLayoutManager.LayoutParams(GridLayout.LayoutParams.WRAP_CONTENT, GridLayout.LayoutParams.WRAP_CONTENT));
+        contact.setText(contactInfo.getInfo());
+        contact.setTextColor(getResources().getColor(R.color.mainText));
+        contact.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(
+                    GridLayout.UNDEFINED, GridLayout.FILL, 4f),
+                    GridLayout.spec(GridLayout.UNDEFINED, GridLayout.FILL, 4f));
+            param.height = GridLayout.LayoutParams.WRAP_CONTENT;
+            param.width = GridLayout.LayoutParams.WRAP_CONTENT;
+            contact.setLayoutParams(param);
+        }
+        contactLayout.addView(contact);
     }
 }

@@ -239,6 +239,7 @@
                 android:textSize="27sp" />
 
             <GridLayout
+                android:id="@+id/contact_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="19dp"
@@ -246,36 +247,36 @@
                 android:paddingBottom="8dp"
                 android:rowCount="2">
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_columnWeight="1"
-                    app:srcCompat="@drawable/ic_email_black_24dp" />
+<!--                <ImageView-->
+<!--                    android:layout_width="25dp"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    app:srcCompat="@drawable/ic_email_black_24dp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="4"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="15dp"
-                    android:text="wbaroudi18@ku.edu.tr"
-                    android:textColor="#353535"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_columnWeight="4"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text="wbaroudi18@ku.edu.tr"-->
+<!--                    android:textColor="#353535"-->
+<!--                    android:textSize="18sp" />-->
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_columnWeight="1"
-                    app:srcCompat="@drawable/ic_local_phone_black_24dp" />
+<!--                <ImageView-->
+<!--                    android:layout_width="25dp"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    android:layout_columnWeight="1"-->
+<!--                    app:srcCompat="@drawable/ic_local_phone_black_24dp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="4"
-                    android:layout_gravity="center_vertical"
-                    android:text="+90 552 489 6079"
-                    android:textColor="#353535"
-                    android:textSize="18sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_columnWeight="4"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:text="+90 552 489 6079"-->
+<!--                    android:textColor="#353535"-->
+<!--                    android:textSize="18sp" />-->
 
             </GridLayout>
 
