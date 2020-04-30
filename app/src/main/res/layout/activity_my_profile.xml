@@ -124,15 +124,16 @@
                     android:textColor="@color/buttonColor"
                     android:textColorLink="#FFFFFF"
                     android:textSize="27sp" />
+
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/edit_skills_button"
                     android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="21dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@id/textView4"
                     android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/add_skill_icon" />
+                    app:srcCompat="@drawable/ic_edit_black_24dp" />
             </RelativeLayout>
 
 

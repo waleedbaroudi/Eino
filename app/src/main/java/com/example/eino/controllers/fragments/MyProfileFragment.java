@@ -40,7 +40,7 @@ public class MyProfileFragment extends Fragment {
 
     TextView name;
     TextView username;
-
+    ImageButton editSkills;
     FlowLayout skillsLayout;
 
     User currentUser;
@@ -67,7 +67,14 @@ public class MyProfileFragment extends Fragment {
         name = view.findViewById(R.id.name_label);
         username = view.findViewById(R.id.username_label);
         logoutButton = view.findViewById(R.id.sign_out_button);
+        editSkills = view.findViewById(R.id.edit_skills_button);
         sharedPreferences = getContext().getSharedPreferences(LogInActivity.SHARED_PREFS, Context.MODE_PRIVATE);
+        editSkills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SkillsActivity.class));
+            }
+        });
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,12 +82,6 @@ public class MyProfileFragment extends Fragment {
             }
         });
         profileImage = view.findViewById(R.id.circleImageView);
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), SkillsActivity.class));
-            }
-        });
 
         name.setText(currentUser.getDisplayName());
         username.setText(currentUser.getUsername());

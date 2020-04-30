@@ -98,6 +98,10 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
                 Toast.makeText(SignupActivity.this, "Please fill in all mandatory fields", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (!nameField.getText().toString().contains("@")){
+                Toast.makeText(SignupActivity.this, "Invalid email address", Toast.LENGTH_SHORT).show();
+                return;
+            }
             progressBar.setVisibility(View.VISIBLE);
             if (existingEmails == null)
                 dataSource.fetchUsers();
