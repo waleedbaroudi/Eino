@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,11 @@ import java.util.ArrayList;
 public class CategoryFragment extends Fragment implements CategoryDataSource.CategoryDataSourceDelegate {
     RecyclerView categoryRecycler;
     CategoryDataSource dataSource;
+    Context context;
+
+    public CategoryFragment(Context context) {
+        this.context = context;
+    }
 
     @Nullable
     @Override

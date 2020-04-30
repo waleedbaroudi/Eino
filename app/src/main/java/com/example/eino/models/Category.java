@@ -18,7 +18,9 @@ public class Category {
     @Expose
     private String id;
 
-    private int numOfPeople=0;
+    @SerializedName("description")
+    @Expose
+    private String description;
 
     public Category(String type, ArrayList<String> subCategories, int numOfPeople, String id) {
         this.type = type;
@@ -44,15 +46,15 @@ public class Category {
         return subCategories;
     }
 
-    public int getNumOfPeople() {
-        return numOfPeople;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNumOfPeople(int numOfPeople) {
-        this.numOfPeople = numOfPeople;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void addSubCategory(String category){
+    public void addSubCategory(String category) {
         subCategories.add(category);
     }
 }

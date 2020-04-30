@@ -37,14 +37,17 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        int imageResId = holder.getImageResource(getImageName(cats.get(position).getType()));
+        final Category current = cats.get(position);
+
+        int imageResId = holder.getImageResource(getImageName(current.getType()));
 
         holder.image.setImageResource(imageResId);
-        holder.catName.setText(cats.get(position).getType());
+        holder.catDescription.setText(current.getDescription());
+        holder.catName.setText(current.getType());
         holder.item.setOnClickListener(v -> {
             Intent toSubCats = new Intent(v.getContext(), SubCategoryActivity.class);
-            toSubCats.putExtra("subcategories", cats.get(position).getSubCategories());
-            toSubCats.putExtra("selectedCategory", cats.get(position).getType());
+            toSubCats.putExtra("subcategories", current.getSubCategories());
+            toSubCats.putExtra("selectedCategory", current.getType());
             v.getContext().startActivity(toSubCats);
         });
     }
@@ -53,22 +56,28 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     public int getItemCount() {
         return cats.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView catName;
+        TextView catDescription;
         ConstraintLayout item;
         CircleImageView image;
         View view;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.item_name);
+            catDescription = itemView.findViewById(R.id.item_description);
             item = itemView.findViewById(R.id.item_layout);
             image = itemView.findViewById(R.id.item_image);
             view = itemView;
         }
+
         public int getImageResource(String imageName) {
             return view.getResources().getIdentifier(imageName, "drawable", view.getContext().getPackageName());
         }
     }
+
     private String getImageName(String str) {
 
         str = str.toLowerCase();
@@ -76,14 +85,14 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
         char[] imageChars = str.toCharArray();
 
-        for(char c : imageChars) {
-            if(c == ' ')
+        for (char c : imageChars) {
+            if (c == ' ')
                 continue;
-            if(c == '+') {
+            if (c == '+') {
                 image += 'p';
                 continue;
             }
-            if(c == '#') {
+            if (c == '#') {
                 image += "sharp";
                 continue;
             }

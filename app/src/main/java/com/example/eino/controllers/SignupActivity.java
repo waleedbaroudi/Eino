@@ -119,21 +119,21 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
     }
 
     @Override
-    public void userAdded(boolean result) {
+    public void userAdded(boolean result, User createdUser) {
         progressBar.setVisibility(View.GONE);
         if (result) {
             Toast.makeText(this, "Registered!", Toast.LENGTH_SHORT).show();
-            saveUserData();
+            saveUserData(createdUser.getID());
             startActivity(new Intent(SignupActivity.this, SkillsActivity.class));
         } else
             Toast.makeText(this, "failed to register new user", Toast.LENGTH_SHORT).show();
     }
 
-    private void saveUserData() {
+    private void saveUserData(String ID) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(LogInActivity.EMAIL_SP_KEY, emailField.getText().toString());
         editor.putString(LogInActivity.PASSWORD_SP_KEY, emailField.getText().toString());
-//        editor.putString(LogInActivity.ID_SP_KEY, ID);
+        editor.putString(LogInActivity.ID_SP_KEY, ID);
         editor.putBoolean(LogInActivity.LOGGEDIN_SP_KEY, true);
         editor.commit();
     }

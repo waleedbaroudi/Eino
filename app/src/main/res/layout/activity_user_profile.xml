@@ -130,76 +130,6 @@
                 app:flChildSpacing="10dp"
                 app:flRowSpacing="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:background="@drawable/skill_tag"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="5dp"
-                    android:text="Java"
-                    android:textColor="@color/skillTagText"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/skill_tag"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="5dp"
-                    android:text="C++"
-                    android:textColor="@color/skillTagText"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/skill_tag"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="5dp"
-                    android:text="Swift"
-                    android:textColor="@color/skillTagText"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/skill_tag"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="5dp"
-                    android:text="JavaScript"
-                    android:textColor="@color/skillTagText"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/skill_tag"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="5dp"
-                    android:text="React"
-                    android:textColor="@color/skillTagText"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/skill_tag"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="5dp"
-                    android:text="C"
-                    android:textColor="@color/skillTagText"
-                    android:textSize="19sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/skill_tag"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="5dp"
-                    android:text="VHDL"
-                    android:textColor="@color/skillTagText"
-                    android:textSize="19sp" />
 
             </com.nex3z.flowlayout.FlowLayout>
 
@@ -233,7 +163,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_columnWeight="1"
-                    android:src="@drawable/ic_email_black_24dp" />
+                    app:srcCompat="@drawable/ic_email_black_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -249,7 +179,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_columnWeight="1"
-                    android:src="@drawable/ic_local_phone_black_24dp" />
+                    app:srcCompat="@drawable/ic_local_phone_black_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -263,6 +193,17 @@
             </GridLayout>
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/user_loading_indicator"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

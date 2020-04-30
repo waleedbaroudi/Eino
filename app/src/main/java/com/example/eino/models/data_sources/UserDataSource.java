@@ -98,16 +98,16 @@ public class UserDataSource {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 201) {
-                    delegate.userAdded(true);
+                    delegate.userAdded(true, response.body());
                     writeUserSkillSet(response.body().getSkills());
                 } else
-                    delegate.userAdded(false);
+                    delegate.userAdded(false, null);
                 Log.d(TAG, "onPostResponse: posting terminated with code: " + response.code());
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                delegate.userAdded(false);
+                delegate.userAdded(false, null);
                 Log.e(TAG, "onPostFailure: posting failed", t);
             }
         });
@@ -174,7 +174,7 @@ public class UserDataSource {
             Log.d(TAG, "usersFetched: DELEGATE NOT SET");
         }
 
-        default void userAdded(boolean result) {
+        default void userAdded(boolean result, User createdUser) {
 
         }
 

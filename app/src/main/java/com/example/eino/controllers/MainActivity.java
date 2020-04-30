@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -37,14 +38,14 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dataSource = new UserDataSource(this);
-        dataSource.setDelegate(this);
 
         String userID = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.ID_SP_KEY, "");
+        Log.d(TAG, "onCreate: USER ID" + userID);
         dataSource.getUserByID(userID);
         bottomNav = findViewById(R.id.bottom_bar);
         fragCont = findViewById(R.id.frag_container);
         bottomNav.setOnNavigationItemSelectedListener(listener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new CategoryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, new CategoryFragment(this)).commit();
     }
 
 
@@ -58,14 +59,14 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
                 case R.id.categories_item:
                     if (!onMyProfile)
                         return true;
-                    selectedFragment = new CategoryFragment();
+                    selectedFragment = new CategoryFragment(MainActivity.this);
                     onMyProfile = false;
                     break;
                 case R.id.profile_item:
                     if (onMyProfile)
                         return true;
                     if (!userReady) {
-                        Toast.makeText(MainActivity.this, "Preparing you profile, try again in a few moments", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Preparing you profile, try again in a few moments", Toast.LENGTH_LONG).show();
                         return false;
                     }
                     selectedFragment = new MyProfileFragment(currentUser);
