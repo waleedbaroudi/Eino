@@ -115,9 +115,16 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
 
     public void createContactInfo(User.ContactInfo contactInfo) {
         //ADDS IMAGE
-        ImageView infoImage = new ImageView(UserProfileActivity.this);
+        ImageView infoImage = infoImage = new ImageView(UserProfileActivity.this);
         infoImage.setLayoutParams(new GridLayoutManager.LayoutParams(GridLayout.LayoutParams.WRAP_CONTENT, GridLayout.LayoutParams.WRAP_CONTENT));
-        infoImage.setImageResource(R.drawable.ic_email_black_24dp);
+
+
+        if(isPhoneNumber(contactInfo.getInfo())){
+            infoImage.setImageResource(R.drawable.ic_local_phone_black_24dp);
+        }
+        else{
+            infoImage.setImageResource(R.drawable.ic_email_black_24dp);
+        }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(
                     GridLayout.UNDEFINED, GridLayout.FILL, 4f),
@@ -133,6 +140,7 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
         contact.setText(contactInfo.getInfo());
         contact.setTextColor(getResources().getColor(R.color.mainText));
         contact.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(
                     GridLayout.UNDEFINED, GridLayout.FILL, 4f),
@@ -142,5 +150,14 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
             contact.setLayoutParams(param);
         }
         contactLayout.addView(contact);
+    }
+    private boolean isPhoneNumber(String text) {
+        char[] chars = text.toCharArray();
+        for(Character c : chars) {
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
