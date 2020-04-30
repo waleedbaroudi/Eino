@@ -170,7 +170,7 @@ public class SkillsActivity extends AppCompatActivity implements UserDataSource.
         String[] categories = {"Programming", "Cooking", "Gardening", "Art", "Science"};
 
         String[] programmingArr = {"java", "c", "c++", "python", "ruby", "html", "php", "c#", "swift", "javascript"};
-        String[] cookingArr = {"savory", "sweets", "baking"};
+        String[] cookingArr = {"savory", "sweet", "baking"};
         String[] gardeningArr = {"herbs gardening", "flower gardening"};
         String[] artArr = {"anatomy", "digital art", "photoshop", "illustrator", "oil painting"};
         String[] scienceArr = {"physics", "chemistry", "mathematics"};
