@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,7 @@ public class CategoryFragment extends Fragment implements CategoryDataSource.Cat
     public void categoriesFetched(ArrayList<Category> categories) {
         MainCategoryAdapter adapter = new MainCategoryAdapter(categories);
         categoryRecycler.setAdapter(adapter);
+        categoryRecycler.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         categoryRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 

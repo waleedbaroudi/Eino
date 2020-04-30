@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity implements UserDataSource.Us
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (onMyProfile)
-                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left).replace(R.id.frag_container, selectedFragment);
+                transaction.replace(R.id.frag_container, selectedFragment);
             else
-                transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right).replace(R.id.frag_container, selectedFragment);
+                transaction.replace(R.id.frag_container, selectedFragment);
             transaction.commit();
             return true;
         }

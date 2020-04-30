@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eino.controllers.SubCategoryActivity;
@@ -28,7 +29,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rounded_list_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -40,7 +41,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
 
         holder.image.setImageResource(imageResId);
         holder.catName.setText(cats.get(position).getType());
-        holder.itemCard.setOnClickListener(v -> {
+        holder.item.setOnClickListener(v -> {
             Intent toSubCats = new Intent(v.getContext(), SubCategoryActivity.class);
             toSubCats.putExtra("subcategories", cats.get(position).getSubCategories());
             toSubCats.putExtra("selectedCategory", cats.get(position).getType());
@@ -54,13 +55,13 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView catName;
-        CardView itemCard;
+        ConstraintLayout item;
         CircleImageView image;
         View view;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catName = itemView.findViewById(R.id.item_name);
-            itemCard = itemView.findViewById(R.id.item_card);
+            item = itemView.findViewById(R.id.item_layout);
             image = itemView.findViewById(R.id.item_image);
             view = itemView;
         }
