@@ -49,7 +49,7 @@ exports.addUser = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     displayName: req.body.displayName,
-    image: req.file.path,
+    image: "pathtoimage",
     skills: [],
     available: req.body.available,
     contactInfoList: req.body.contactInfoList,
@@ -68,7 +68,7 @@ exports.addUser = (req, res) => {
           contactInfoList: user.contactInfoList,
           request: {
             type: "GET",
-            url: config.hostUrl + "users/" + user._id,
+            url: config.hostUrl + "/users/" + user._id,
         },
       });
     })

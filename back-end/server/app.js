@@ -7,7 +7,7 @@ import userRoute from "./routes/userRoute";
 import categoryRoute from './routes/categoryRoute';
 
 //Server Setup
-const port = 8080 || process.env.PORT;
+const port = 3000 || process.env.PORT;
 const app = express();
 const server = http.createServer(app);
 

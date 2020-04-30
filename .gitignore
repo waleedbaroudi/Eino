@@ -16,3 +16,5 @@
 **/androidTest/
 /back-end/node_modules
 /back-end/config
+/back-end/uploads
+/back-end/eino-275710-13520d32986b.json

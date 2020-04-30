@@ -51,34 +51,34 @@ router.get("/", userController.getUsers);
 //Get a particular user with their unique ID
 router.get("/:id", userController.getUser);
 //Add a user and get that added user back as a response
-//router.post("/", upload.single("userImage"), userController.addUser);
-router.post("/", multer.single("userImage"), (req, res, next) => {
-  if (!req.file) {
-    res.status(400).send('No file uploaded.');
-    return;
-  }
-   // Create a new blob in the bucket and upload the file data.
-   const blob = einoImagesBucket.file(req.file.originalname);
-   const blobStream = blob.createWriteStream({
-    metadata: {
-      contentType: "image/jpeg" //Makes it so you view the image in the browser instead of downloading it.
-    }
-   });
+router.post("/", userController.addUser);
+// router.post("/", multer.single("userImage"), (req, res, next) => {
+//   if (!req.file) {
+//     res.status(400).send('No file uploaded.');
+//     return;
+//   }
+//    // Create a new blob in the bucket and upload the file data.
+//    const blob = einoImagesBucket.file(req.file.originalname);
+//    const blobStream = blob.createWriteStream({
+//     metadata: {
+//       contentType: "image/jpeg" //Makes it so you view the image in the browser instead of downloading it.
+//     }
+//    });
  
-   blobStream.on('error', (err) => {
-     next(err);
-   });
+//    blobStream.on('error', (err) => {
+//      next(err);
+//    });
  
-   blobStream.on('finish', () => {
-     // The public URL can be used to directly access the file via HTTP.
-     const publicUrl = format(
-       `https://storage.googleapis.com/${einoImagesBucket.name}/${blob.name}`
-     );
-     res.status(200).send(publicUrl);
-   });
+//    blobStream.on('finish', () => {
+//      // The public URL can be used to directly access the file via HTTP.
+//      const publicUrl = format(
+//        `https://storage.googleapis.com/${einoImagesBucket.name}/${blob.name}`
+//      );
+//      res.status(200).send(publicUrl);
+//    });
  
-   blobStream.end(req.file.buffer);
-});
+//    blobStream.end(req.file.buffer);
+// });
 //Add the skills to the skills array in the User object
 router.patch("/:email", userController.addUserSkills);
 //Remove a user by passing their id as a paramter

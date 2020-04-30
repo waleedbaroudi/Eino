@@ -17,7 +17,7 @@ var _categoryRoute = _interopRequireDefault(require("./routes/categoryRoute"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //Server Setup
-var port = 8080 || process.env.PORT;
+var port = 3000 || process.env.PORT;
 var app = (0, _express["default"])();
 
 var server = _http["default"].createServer(app); //Establish a connection with the mongodb server.

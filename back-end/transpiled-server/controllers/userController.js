@@ -49,7 +49,7 @@ exports.addUser = function (req, res) {
     email: req.body.email,
     password: req.body.password,
     displayName: req.body.displayName,
-    image: req.file.path,
+    image: "pathtoimage",
     skills: [],
     available: req.body.available,
     contactInfoList: req.body.contactInfoList
@@ -66,7 +66,7 @@ exports.addUser = function (req, res) {
       contactInfoList: user.contactInfoList,
       request: {
         type: "GET",
-        url: _config["default"].hostUrl + "users/" + user._id
+        url: _config["default"].hostUrl + "/users/" + user._id
       }
     });
   })["catch"](function (err) {
