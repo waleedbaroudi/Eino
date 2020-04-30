@@ -7,7 +7,7 @@ public class Network {
     private static Network network = null;
     Retrofit retrofit;
     DataAPI dataAPI;
-    public static final String BASE_URL = "http://10.0.2.2:3000/"; // TODO: ADD BASE URL
+    public static final String BASE_URL = "https://eino-275710.ey.r.appspot.com"; // TODO: ADD BASE URL
     private Network() {
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
         dataAPI = retrofit.create(DataAPI.class);
