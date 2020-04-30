@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,11 @@ import com.example.eino.controllers.LogInActivity;
 import com.example.eino.controllers.MainActivity;
 import com.example.eino.controllers.SkillsActivity;
 import com.example.eino.models.User;
+import com.example.eino.models.data_sources.UserDataSource;
+import com.nex3z.flowlayout.FlowLayout;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,7 +41,11 @@ public class MyProfileFragment extends Fragment {
     TextView name;
     TextView username;
 
+    FlowLayout skillsLayout;
+
     User currentUser;
+
+    Set<String> skills;
 
     View view;
 
@@ -50,6 +61,9 @@ public class MyProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_my_profile, container, false);
+        skillsLayout = view.findViewById(R.id.skillsLayout);
+        skills = new HashSet<>(currentUser.getSkills());
+        initializeSkillLayout();
         name = view.findViewById(R.id.name_label);
         username = view.findViewById(R.id.username_label);
         logoutButton = view.findViewById(R.id.sign_out_button);
@@ -73,6 +87,21 @@ public class MyProfileFragment extends Fragment {
         return view;
     }
 
+    private void initializeSkillLayout() {
+        for (String skill : skills) {
+            createSkill(skill);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        skills = sharedPreferences.getStringSet(UserDataSource.SKILLSET_SP_KEY, skills);
+        skillsLayout.removeAllViews();
+        skills = sharedPreferences.getStringSet(UserDataSource.SKILLSET_SP_KEY, skills);
+        initializeSkillLayout();
+    }
+
     private void showAlertDialog() {
         boolean result = false;
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -91,5 +120,21 @@ public class MyProfileFragment extends Fragment {
         });
         alertDialog.setNegativeButton("Cancel", null);
         alertDialog.show();
+    }
+
+    public void createSkill(String skillName) {
+        TextView skill = new TextView(getContext());
+        skill.setLayoutParams(new FlowLayout.LayoutParams(
+                FlowLayout.LayoutParams.WRAP_CONTENT,
+                FlowLayout.LayoutParams.WRAP_CONTENT
+        ));
+        skill.setBackgroundResource(R.drawable.skill_tag);
+        int horizontalPadding = (int) (12 * getResources().getDisplayMetrics().density + 0.5f);
+        int verticalPadding = (int) (5 * getResources().getDisplayMetrics().density + 0.5f);
+        skill.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
+        skill.setText(skillName);
+        skill.setTextColor(Color.WHITE);
+        skill.setTextSize(TypedValue.COMPLEX_UNIT_SP, 19);
+        skillsLayout.addView(skill);
     }
 }

@@ -78,7 +78,7 @@ public class SkillsActivity extends AppCompatActivity implements UserDataSource.
             if (currentUserSkills.contains(skill.getName()))
                 skill.setChecked(true);
         }
-        adapter = new SkillAdapter(allSkills, this);
+        adapter = new SkillAdapter(allSkills, new ArrayList<>(currentUserSkills), this);
         skillsRecycler.setAdapter(adapter);
     }
 

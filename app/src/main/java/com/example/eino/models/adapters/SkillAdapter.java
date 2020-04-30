@@ -28,9 +28,10 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     private ArrayList<String> selectedSkills = new ArrayList<>();
 
-    public SkillAdapter(ArrayList<Skill> skills, Context context) {
+    public SkillAdapter(ArrayList<Skill> skills, ArrayList<String> selectedSkills, Context context) {
         this.skills = skills;
         this.context = context;
+        this.selectedSkills = selectedSkills;
     }
 
     @NonNull
