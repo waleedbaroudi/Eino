@@ -83,10 +83,11 @@ public class UserDataSource {
     public ArrayList<User> filterBySubcategory(ArrayList<User> users, String subCat) {
         ArrayList<User> filtered = new ArrayList<>();
         for (User user : users) {
+            Log.d(TAG, "filterBySubcategory: " + user.getID());
             if (user.getSkills().contains(subCat))
                 filtered.add(user);
         }
-        Log.d(TAG, "filterBySubcategory: filtered" + filtered.size() + "users out of " + users.size());
+        Log.d(TAG, "filterBySubcategory: filtered " + filtered.size() + " users out of " + users.size());
         return filtered;
     }
 

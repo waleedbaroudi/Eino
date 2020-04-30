@@ -19,9 +19,11 @@ import com.example.eino.models.Skill;
 import com.example.eino.models.SkillPatch;
 import com.example.eino.models.User;
 import com.example.eino.models.adapters.SkillAdapter;
+import com.example.eino.models.data_sources.CategoryDataSource;
 import com.example.eino.models.data_sources.UserDataSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,7 +41,9 @@ public class SkillsActivity extends AppCompatActivity implements UserDataSource.
     SkillAdapter adapter;
     CircleImageView addButton;
 
-    UserDataSource dataSource;
+    UserDataSource userDataSource;
+    CategoryDataSource categoryDataSource;
+
 
     SharedPreferences sharedPreferences;
 
@@ -48,7 +52,8 @@ public class SkillsActivity extends AppCompatActivity implements UserDataSource.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skills);
         skillsRecycler = findViewById(R.id.skills_recycler);
-        dataSource = new UserDataSource(this);
+        userDataSource = new UserDataSource(this);
+        categoryDataSource = new CategoryDataSource();
         allSkills = Categories.getInstance().getSkills();
         sharedPreferences = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE);
         currentUserSkills = sharedPreferences.getStringSet(UserDataSource.SKILLSET_SP_KEY, null);
@@ -65,7 +70,7 @@ public class SkillsActivity extends AppCompatActivity implements UserDataSource.
     private void initializeUserSkills() {
         Set<String> userSkills = sharedPreferences.getStringSet(UserDataSource.SKILLSET_SP_KEY, null);
         if (userSkills == null) {
-            dataSource.getUserByID(sharedPreferences.getString(LogInActivity.ID_SP_KEY, ""));
+            userDataSource.getUserByID(sharedPreferences.getString(LogInActivity.ID_SP_KEY, ""));
         } else {
             currentUserSkills = userSkills;
             checkUserSkills();
@@ -113,11 +118,76 @@ public class SkillsActivity extends AppCompatActivity implements UserDataSource.
             String email = getSharedPreferences(LogInActivity.SHARED_PREFS, MODE_PRIVATE).getString(LogInActivity.EMAIL_SP_KEY, "");
             ArrayList<String> skills = ((SkillAdapter) skillsRecycler.getAdapter()).getSelectedSkills();
             Log.d(TAG, "onClick: PATCHING " + skills.size() + " SKILLS TO USER: " + email);
-            dataSource.addUserSkills(email, new SkillPatch(skills));
+            userDataSource.addUserSkills(email, new SkillPatch(skills));
+            updateCategories();
             sharedPreferences.edit().putStringSet(UserDataSource.SKILLSET_SP_KEY, new HashSet<>(skills)).commit();
             finish();
         }
     };
+
+    private void updateCategories() {
+        Log.d(TAG, "old list: " + currentUserSkills.toString());
+        Set<String> oldList = currentUserSkills;
+        ArrayList<String> newList = ((SkillAdapter) skillsRecycler.getAdapter()).getSelectedSkills();
+
+        ArrayList<String> newSkills = new ArrayList<>(newList);
+        newSkills.removeAll(oldList);
+        ArrayList<String> newCategorySet = getCategorySet(newSkills);
+
+        ArrayList<String> oldSkills = new ArrayList<>(oldList);
+        oldSkills.removeAll(newList);
+        ArrayList<String> oldCategorySet = getCategorySet(oldSkills);
+
+        String userID = sharedPreferences.getString(LogInActivity.ID_SP_KEY, "");
+
+        Thread categoryUpdater = new Thread(() -> {
+
+            for (String skill : newCategorySet) {
+                categoryDataSource.addUserToCategory(skill, userID);
+            }
+            for (String skill : oldCategorySet) {
+                categoryDataSource.removeUserFromCategory(skill, userID);
+            }
+        });
+        categoryUpdater.start();
+    }
+
+    public ArrayList<String> getCategorySet(ArrayList<String> subCategory) {
+        Set<String> subCatSet = new HashSet<>();
+
+        for (String subCat : subCategory) {
+            subCatSet.add(getCategory(subCat));
+        }
+        Log.d(TAG, "getCategorySet: SUBCATEGORIES RECEIVED: " + subCategory.size());
+        Log.d(TAG, "getCategorySet: CATEGORIES RETURNED: " + subCatSet.size());
+        return new ArrayList<>(subCatSet);
+    }
+
+
+    public String getCategory(String subCategory) {
+        subCategory = subCategory.toLowerCase();
+
+        String[] categories = {"Programming", "Cooking", "Gardening", "Art", "Science"};
+
+        String[] programmingArr = {"java", "c", "c++", "python", "ruby", "html", "php", "c#", "swift", "javascript"};
+        String[] cookingArr = {"savory", "sweets", "baking"};
+        String[] gardeningArr = {"herbs gardening", "flower gardening"};
+        String[] artArr = {"anatomy", "digital art", "photoshop", "illustrator", "oil painting"};
+        String[] scienceArr = {"physics", "chemistry", "mathematics"};
+
+        String[][] subCategoryArr = {programmingArr, cookingArr, gardeningArr, artArr, scienceArr};
+
+        HashMap<String, String> categoryMap = new HashMap<String, String>();
+        int numOfRows = subCategoryArr.length;
+        String sub = null;
+        for (int i = 0; i < numOfRows; i++) {
+            for (int j = 0; j < subCategoryArr[i].length; j++) {
+                sub = subCategoryArr[i][j];
+                categoryMap.put(sub, categories[i]);
+            }
+        }
+        return categoryMap.get(subCategory);
+    }
 
     public void filter(String text) {
         ArrayList<Skill> filtered = new ArrayList<>();

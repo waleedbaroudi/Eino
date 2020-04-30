@@ -38,8 +38,9 @@ public class UsersActivity extends AppCompatActivity implements UserDataSource.U
 
     @Override
     public void fetchedUsersByCategory(ArrayList<User> users) {
+        Log.d(TAG, "fetchedUsersByCategory: NUMBER OF USERS: " + users.size());
         ArrayList<User> usersBySubcat = dataSource.filterBySubcategory(users, selectedSubCat);
-        Log.d(TAG, "fetchedUsersByCategory: " + users.size() + "users for category: " + selectedSubCat);
+        Log.d(TAG, "fetchedUsersByCategory: " + users.size() + " users for category: " + selectedCategory);
         usersRecycler.setAdapter(new UsersAdapter(usersBySubcat, selectedSubCat));
         usersRecycler.setLayoutManager(new LinearLayoutManager(this));
     }

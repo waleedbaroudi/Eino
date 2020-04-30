@@ -156,6 +156,7 @@ public class LogInActivity extends AppCompatActivity implements UserDataSource.U
     @Override
     protected void onResume() {
         super.onResume();
+        dataSource = new UserDataSource(this);
         if (sharedPreferences.getBoolean(LOGGEDIN_SP_KEY, false))
             finish();
     }
