@@ -87,6 +87,7 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
         infoCard.setOnClickListener(v -> {
             spreadSet.connect(R.id.name_label, ConstraintSet.TOP, R.id.user_layout, ConstraintSet.TOP, 150);
             spreadSet.applyTo(userLayout);
+            userLoadingIndicator.setVisibility(View.GONE);
             imageView.setVisibility(imageView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
             topImage.setVisibility(topImage.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
         });
