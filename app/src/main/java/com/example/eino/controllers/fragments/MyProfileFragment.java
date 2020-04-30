@@ -153,7 +153,14 @@ public class MyProfileFragment extends Fragment {
         //ADDS IMAGE
         ImageView infoImage = new ImageView(getContext());
         infoImage.setLayoutParams(new GridLayoutManager.LayoutParams(GridLayout.LayoutParams.WRAP_CONTENT, GridLayout.LayoutParams.WRAP_CONTENT));
-        infoImage.setImageResource(R.drawable.ic_email_black_24dp);
+
+        if(isPhoneNumber(contactInfo.getInfo())){
+            infoImage.setImageResource(R.drawable.ic_local_phone_black_24dp);
+        }
+        else{
+            infoImage.setImageResource(R.drawable.ic_email_black_24dp);
+        }
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             GridLayout.LayoutParams param = new GridLayout.LayoutParams(GridLayout.spec(
                     GridLayout.UNDEFINED, GridLayout.FILL, 4f),
@@ -178,5 +185,14 @@ public class MyProfileFragment extends Fragment {
             contact.setLayoutParams(param);
         }
         contactLayout.addView(contact);
+    }
+    private boolean isPhoneNumber(String text) {
+        char[] chars = text.toCharArray();
+        for(Character c : chars) {
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

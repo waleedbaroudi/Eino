@@ -37,7 +37,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
     GridLayout contactLayout;
     FlowLayout skillsLayout;
 
-
     ProgressBar userLoadingIndicator;
 
     User currentUser;
@@ -54,7 +53,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
 
         spreadSet.clone(this, R.layout.activity_user_profile);
     }
-
 
     @Override
     public void userFetched(User user) {
@@ -117,7 +115,6 @@ public class UserProfileActivity extends AppCompatActivity implements UserDataSo
         //ADDS IMAGE
         ImageView infoImage = infoImage = new ImageView(UserProfileActivity.this);
         infoImage.setLayoutParams(new GridLayoutManager.LayoutParams(GridLayout.LayoutParams.WRAP_CONTENT, GridLayout.LayoutParams.WRAP_CONTENT));
-
 
         if(isPhoneNumber(contactInfo.getInfo())){
             infoImage.setImageResource(R.drawable.ic_local_phone_black_24dp);
