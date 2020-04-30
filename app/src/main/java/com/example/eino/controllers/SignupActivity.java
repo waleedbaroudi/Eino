@@ -2,6 +2,7 @@ package com.example.eino.controllers;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.example.eino.R;
 import com.example.eino.models.User;
 import com.example.eino.models.data_sources.UserDataSource;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -33,6 +35,8 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
     private ArrayList<String> existingEmails;
 
     SharedPreferences sharedPreferences;
+
+    private boolean registered = false;
 
     EditText nameField;
     EditText surnameField;
@@ -49,9 +53,10 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
 
     ImageView profileImage;
 
+    ConstraintLayout mainLayout;
+
     Button signUpButton;
 
-    private boolean signedUp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +76,17 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
     protected void onResume() {
         super.onResume();
         if (sharedPreferences.getBoolean(LogInActivity.LOGGEDIN_SP_KEY, false))
-            finish();
+            startActivity(new Intent(SignupActivity.this, MainActivity.class));
     }
 
     private void initializeListeners() {
-        profileImage.setOnClickListener(v -> startActivityForResult(Intent.createChooser(new Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT), "Pick a profile picture"), GALLERY_REQUEST_CODE));
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(mainLayout, "Adding a profile picture is currently not supported", Snackbar.LENGTH_LONG).show();
+            }
+        });
+//        profileImage.setOnClickListener(v -> startActivityForResult(Intent.createChooser(new Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT), "Pick a profile picture"), GALLERY_REQUEST_CODE));
         signUpButton.setOnClickListener(signUpListener);
     }
 
@@ -113,7 +124,7 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
         if (result) {
             Toast.makeText(this, "Registered!", Toast.LENGTH_SHORT).show();
             saveUserData();
-            startActivity(new Intent(SignupActivity.this, MainActivity.class));
+            startActivity(new Intent(SignupActivity.this, SkillsActivity.class));
         } else
             Toast.makeText(this, "failed to register new user", Toast.LENGTH_SHORT).show();
     }
@@ -153,6 +164,7 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
         }
     }
 
+
     private void initializeViews() {
         nameField = (EditText) findViewById(R.id.nameEditText);
         nameField.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_person_black_24dp, 0, 0, 0);
@@ -171,6 +183,8 @@ public class SignupActivity extends AppCompatActivity implements UserDataSource.
 
         firstInfoField = (EditText) findViewById(R.id.firstInfoEditText);
         secondInfoField = (EditText) findViewById(R.id.secondInfoEditText);
+
+        mainLayout = (ConstraintLayout) findViewById(R.id.signup_constraint);
 
         firstInfoType = findViewById(R.id.firstType);
         secondInfoType = findViewById(R.id.secondType);
